@@ -1,4 +1,4 @@
-package org.madelineundis.service;
+package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.BufferedReader;
