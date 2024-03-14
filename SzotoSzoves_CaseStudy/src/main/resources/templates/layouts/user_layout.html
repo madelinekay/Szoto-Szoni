@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <title>Szótő Szőni</title>
+    </head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        html, body {
+            height: 100%;
+        }
+        nav {
+            height: 4rem;
+            border-bottom: 1px solid #E9ECEF;
+        }
+        .nav {
+            padding: 1.5rem;
+            border-right: 1px solid #E9ECEF;
+            width: 20rem;
+        }
+        .montserrat {
+            font-family: "Montserrat", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+    </style>
+    <body>
+        <header th:replace="fragments/navbar :: top-navbar"></header>
+        <div class="d-flex h-100" >
+        <aside th:replace="fragments/sidebar :: side-navbar"></aside>
+        <div class="d-flex flex-column w-100 h-100 align-items-center" style="padding: 2.3rem" th:replace="${content}">
+
+        </div>
+        </div>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>
+

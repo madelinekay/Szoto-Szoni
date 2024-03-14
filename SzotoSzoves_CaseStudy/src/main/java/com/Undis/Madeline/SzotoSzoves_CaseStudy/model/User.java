@@ -19,8 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String email;
-    private String firstName;
-    private String lastName;
+    private String password;
     private Date signUpDate;
     private int level;
     private String language;
@@ -28,11 +27,13 @@ public class User {
     @JoinTable
     private Set<Word> words;
 
-    public User(String email, String firstName, String lastName, Date signUpDate, Set<Word> words) {
+    public User(int id, String email, String password, Date signUpDate, int level, String language, Set<Word> words) {
+        this.id = id;
         this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.password = password;
         this.signUpDate = signUpDate;
+        this.level = level;
+        this.language = language;
         this.words = words;
     }
 }

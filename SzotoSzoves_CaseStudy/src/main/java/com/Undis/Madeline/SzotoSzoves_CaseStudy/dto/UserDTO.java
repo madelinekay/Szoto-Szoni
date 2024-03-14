@@ -12,9 +12,7 @@ public class UserDTO {
     @NotEmpty
     private String email;
     @NotEmpty
-    private String firstName;
-    @NotEmpty
-    private String lastName;
+    private String password;
     @NotEmpty
     private Date signUpDate;
     @NotEmpty
@@ -54,20 +52,12 @@ public class UserDTO {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getSignUpDate() {
