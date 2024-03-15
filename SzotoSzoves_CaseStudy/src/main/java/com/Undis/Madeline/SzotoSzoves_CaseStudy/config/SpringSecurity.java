@@ -21,21 +21,22 @@ public class SpringSecurity {
         http.csrf((csrf) -> csrf.disable())
         .authorizeHttpRequests((auth) -> auth
 //                sites you can access without authorization
-                .requestMatchers("/index", "/signup", "/css/", "/js/", "/signup-process").permitAll()
+                .requestMatchers("/index", "/signup",  "/signup-process").permitAll()
+                .requestMatchers("/include/**", "/css/**", "/icons/**", "/img/**", "/js/**", "/layer/**", "/static/**").permitAll()
 //                pages for authenticated users
 //                to-do: rename login page
-        .requestMatchers("/collections", "/flashcard").authenticated())
-               .formLogin(form -> form
-                .loginPage("/index")
-                .loginProcessingUrl("/index")
-                .successForwardUrl("/flashcard") // required for thymeleaf security extras
-                .permitAll()
-        )
+                .requestMatchers("/collections", "/flashcard").authenticated())
+                       .formLogin(form -> form
+                        .loginPage("/index")
+                        .loginProcessingUrl("/index")
+                        .successForwardUrl("/flashcard") // required for thymeleaf security extras
+                        .permitAll()
+                )
                 .logout(
                         logout -> logout
                                 .invalidateHttpSession(true)
                                 .clearAuthentication(true)
-//                                I think this code just checks that logout is in the url pattern
+        //                                I think this code just checks that logout is in the url pattern
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
                 );
