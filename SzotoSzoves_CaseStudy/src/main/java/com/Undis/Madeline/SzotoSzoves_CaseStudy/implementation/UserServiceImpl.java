@@ -25,8 +25,6 @@ public class UserServiceImpl implements UserService {
 
     public void saveUser(UserDTO userDTO) {
         User user = new User();
-//        why not use repository for this
-//        date will need to be added
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userRepository.save(user);
     }

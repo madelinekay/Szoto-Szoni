@@ -1,22 +1,22 @@
 <nav th:fragment="navbar" class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid justify-content-between">
         <a class="navbar-brand montserrat" href="../index.html" style="margin-left: 1.5rem">
-            <img class="rounded-circle d-inline-block align-text-top" src="../../static/images/root.webp" alt="Logo" width="30" height="24">
             <span style="text-decoration: underline; text-decoration-color: blue">Szó•</span><span style="text-decoration: underline; text-decoration-color: green">tő </span><span style="text-decoration: underline; text-decoration-color: red">Sző•</span><span style="text-decoration: underline; text-decoration-color: purple">ni</span></a>
         </a>
         <!--    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">-->
         <!--      <span class="navbar-toggler-icon"></span>-->
         <!--    </button>-->
         <div class="collapse navbar-collapse" id="navbarText">
+<!--            todo add active class with javascript -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item ">
-                    <a class="nav-link" aria-current="page" href="../signup.html">Sign-up</a>
+                    <a class="nav-link" aria-current="page" th:href="@{signup}">Sign-up</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="../index.html">Login</a>
+                    <a class="nav-link" th:href="@{index}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" th:href="@{flashcard}">About</a>
                 </li>
             </ul>
         </div>

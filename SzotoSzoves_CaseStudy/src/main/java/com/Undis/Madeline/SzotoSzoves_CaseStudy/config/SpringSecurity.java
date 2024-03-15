@@ -23,7 +23,8 @@ public class SpringSecurity {
         .authorizeHttpRequests((auth) -> auth
 //                sites you can access without authorization
                 .requestMatchers("/index", "/signup","/signup-process").permitAll()
-                .requestMatchers("/include/**", "/css/**", "/icons/**", "/img/**", "/js/**", "/layer/**", "/static/**").permitAll()
+                .requestMatchers("/include/**", "/css/**", "/icons/**", "/images/**", "/js/**", "/layer/**", "/static/**").permitAll()
+//                this line should fix lab
                 .requestMatchers(HttpMethod.POST, "/signup/save").permitAll()
 //                pages for authenticated users
 //                to-do: rename login page

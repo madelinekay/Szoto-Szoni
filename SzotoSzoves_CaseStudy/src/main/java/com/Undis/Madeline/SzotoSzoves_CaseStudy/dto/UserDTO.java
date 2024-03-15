@@ -48,5 +48,14 @@ public class UserDTO {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", level=" + level +
+                ", language='" + language + '\'' +
+                '}';
+    }
 }
 

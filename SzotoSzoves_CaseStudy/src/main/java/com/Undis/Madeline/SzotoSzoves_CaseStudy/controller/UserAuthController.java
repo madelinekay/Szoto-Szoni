@@ -31,8 +31,6 @@ public class UserAuthController {
 //this prepares registration for user with DTO
     @GetMapping("/signup")
     public String showRegistrationForm(Model model) {
-//   this method is working - now not working
-        System.out.println("here");
         UserDTO user = new UserDTO();
         model.addAttribute("user", user);
         return "signup";
@@ -42,22 +40,18 @@ public class UserAuthController {
     @PostMapping("/signup/save")
     public String registration(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model) {
         User existingUser = userService.findUserByEmail(userDTO.getEmail());
-// redundant?
-//        if (existingStudent != null && existingStudent.getEmail() != null && !existingStudent.getEmail().isEmpty())
 //        TODO verify if this message will be injected into thymeleaf
         if(existingUser != null){
             result.rejectValue("email", null, "There is already an account registered with the same email");
         }
-
         if (result.hasErrors()) {
             model.addAttribute("user", userDTO);
 
             return "/signup";
         }
-
+        System.out.println(userDTO);
         userService.saveUser(userDTO);
         return "redirect:/signup?success";
-
     }
 }
 

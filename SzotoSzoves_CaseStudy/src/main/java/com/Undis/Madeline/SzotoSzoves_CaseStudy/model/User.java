@@ -20,7 +20,7 @@ public class User {
     private int id;
     private String email;
     private String password;
-    private Date signUpDate;
+//    private Date signUpDate;
     private int level;
     private String language;
     @ManyToMany
@@ -31,7 +31,7 @@ public class User {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.signUpDate = signUpDate;
+//        this.signUpDate = signUpDate;
         this.level = level;
         this.language = language;
         this.words = words;
