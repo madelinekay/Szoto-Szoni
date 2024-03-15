@@ -26,12 +26,12 @@ public class UserServiceImpl implements UserService {
     public void saveUser(UserDTO userDTO) {
         User user = new User();
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setEmail(userDTO.getEmail());
+        user.setLevel(userDTO.getLevel());
+        user.setLanguage(userDTO.getLanguage());
         userRepository.save(user);
     }
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-//    I believe this is used to map the data to DTO for frontend and will not be used
-//    private UserDTO mapToUserDTO(User user) {};
-
 }

@@ -46,12 +46,10 @@ public class UserAuthController {
         }
         if (result.hasErrors()) {
             model.addAttribute("user", userDTO);
-
             return "/signup";
         }
-        System.out.println(userDTO);
         userService.saveUser(userDTO);
-        return "redirect:/signup?success";
+        return "redirect:/index";
     }
 }
 

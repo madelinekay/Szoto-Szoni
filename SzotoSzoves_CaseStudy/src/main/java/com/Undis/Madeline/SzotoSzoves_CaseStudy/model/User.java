@@ -27,7 +27,7 @@ public class User {
     @JoinTable
     private Set<Word> words;
 
-    public User(int id, String email, String password, Date signUpDate, int level, String language, Set<Word> words) {
+    public User(int id, String email, String password, int level, String language, Set<Word> words) {
         this.id = id;
         this.email = email;
         this.password = password;
