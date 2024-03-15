@@ -28,10 +28,11 @@ public class UserAuthController {
     public String login() {
         return "flashcard";
     }
-
+//this prepares registration for user with DTO
     @GetMapping("/signup")
     public String showRegistrationForm(Model model) {
-        // model object contains form data (spring has converted from json)
+//   this method is working - now not working
+        System.out.println("here");
         UserDTO user = new UserDTO();
         model.addAttribute("user", user);
         return "signup";
@@ -39,7 +40,7 @@ public class UserAuthController {
 
     // handler method to handle student registration from submit request
     @PostMapping("/signup/save")
-    public String registration(@Valid @ModelAttribute("student") UserDTO userDTO, BindingResult result, Model model) {
+    public String registration(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model) {
         User existingUser = userService.findUserByEmail(userDTO.getEmail());
 // redundant?
 //        if (existingStudent != null && existingStudent.getEmail() != null && !existingStudent.getEmail().isEmpty())
