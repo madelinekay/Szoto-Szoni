@@ -19,15 +19,24 @@ public class UserAuthController {
     public UserAuthController(UserService userService) {
         this.userService = userService;
     }
-    @GetMapping("/index")
-    public String home() {
-        return "index";
-    }
-
     @GetMapping("/flashcard")
-    public String login() {
+    public String flashcard() {
         return "flashcard";
     }
+    @GetMapping("/collections")
+    public String collections() {
+        return "collections";
+    }
+
+//    why wouldn't this also have post?
+    @GetMapping ("/login")
+    public String login() { return "login"; }
+    // Login form with error
+//    @RequestMapping("/login-error.html")
+//    public String loginError(Model model) {
+//        model.addAttribute("loginError", true);
+//        return "login.html";
+//    }
 //this prepares registration for user with DTO
     @GetMapping("/signup")
     public String showRegistrationForm(Model model) {

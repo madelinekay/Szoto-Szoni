@@ -22,19 +22,20 @@ public class SpringSecurity {
         http.csrf((csrf) -> csrf.disable())
         .authorizeHttpRequests((auth) -> auth
 //                sites you can access without authorization
-                .requestMatchers("/index", "/signup","/signup-process").permitAll()
+                .requestMatchers("/login", "/signup","/signup-process").permitAll()
                 .requestMatchers("/include/**", "/css/**", "/icons/**", "/images/**", "/js/**", "/layer/**", "/static/**").permitAll()
 //                this line should fix lab
                 .requestMatchers(HttpMethod.POST, "/signup/save").permitAll()
 //                pages for authenticated users
-//                to-do: rename login page
                 .requestMatchers("/collections", "/flashcard").authenticated())
-                       .formLogin(form -> form
-                        .loginPage("/index")
-                        .loginProcessingUrl("/index")
-                        .successForwardUrl("/flashcard") // required for thymeleaf security extras
-                        .permitAll()
-                )
+               .formLogin(form -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .successForwardUrl("/flashcard") // required for thymeleaf security extras
+
+//                 .defaultSuccessUrl("/flashcard")
+                .permitAll()
+        )
                 .logout(
                         logout -> logout
                                 .invalidateHttpSession(true)
