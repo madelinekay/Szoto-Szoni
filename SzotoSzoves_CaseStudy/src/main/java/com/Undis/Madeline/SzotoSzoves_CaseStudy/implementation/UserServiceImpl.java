@@ -5,6 +5,10 @@ import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.UserRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.UserService;
+import groovy.util.logging.Slf4j;
+import jakarta.transaction.Transactional;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +38,5 @@ public class UserServiceImpl implements UserService {
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
 }

@@ -2,6 +2,8 @@ package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.UserDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 //interface for processing web requests(login + signup) and passing to data access layer
 public interface UserService {

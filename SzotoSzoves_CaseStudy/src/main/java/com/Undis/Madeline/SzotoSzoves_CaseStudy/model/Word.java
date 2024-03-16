@@ -24,17 +24,18 @@ public class Word {
     @JoinTable
     private Set<Root> roots;
     private int difficulty;
-    private Date lastSeen;
+    private boolean flagged;
+//    private Date lastSeen;
     @ManyToMany(mappedBy = "words", cascade = CascadeType.ALL)
     private Set<User> users;
 
-    public Word(int id, String name, String english, Set<Root> roots, int difficulty, Date lastSeen, Set<User> users) {
+    public Word(int id, String name, String english, Set<Root> roots, int difficulty, Boolean flagged, Set<User> users) {
         this.id = id;
         this.name = name;
         this.english = english;
         this.roots = roots;
         this.difficulty = difficulty;
-        this.lastSeen = lastSeen;
+//        this.lastSeen = lastSeen;
         this.users = users;
     }
 }

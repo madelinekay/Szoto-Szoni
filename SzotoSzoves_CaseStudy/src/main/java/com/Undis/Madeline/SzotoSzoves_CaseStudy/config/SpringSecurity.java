@@ -25,7 +25,7 @@ public class SpringSecurity {
                 .requestMatchers("/login", "/signup","/signup-process").permitAll()
                 .requestMatchers("/include/**", "/css/**", "/icons/**", "/images/**", "/js/**", "/layer/**", "/static/**").permitAll()
 //                this line should fix lab
-                .requestMatchers(HttpMethod.POST, "/signup/save").permitAll()
+                .requestMatchers(HttpMethod.POST, "/signup/save", "/login").permitAll()
 //                pages for authenticated users
                 .requestMatchers("/collections", "/flashcard").authenticated())
                .formLogin(form -> form

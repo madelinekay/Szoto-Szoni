@@ -22,17 +22,17 @@ public class Root {
     private String english;
     @ManyToMany(mappedBy = "roots", cascade = CascadeType.ALL)
     private Set<Word> words;
-    private int difficulty;
-    private Date lastSeen;
-    private boolean flagged;
+//    private int difficulty;
+//    private Date lastSeen;
+    private String partOfSpeech;
 
-    public Root(int id, String name, String english, Set<Root> roots, int difficulty, Date lastSeen, boolean flagged) {
+    public Root(int id, String name, String english, Set<Word> words, String partOfSpeech) {
         this.id = id;
         this.name = name;
         this.english = english;
         this.words = words;
-        this.difficulty = difficulty;
-        this.lastSeen = lastSeen;
-        this.flagged = flagged;
+//        this.difficulty = difficulty;
+//        this.lastSeen = lastSeen;
+        this.partOfSpeech = partOfSpeech;
     }
 }
