@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface UserService {
     void saveUser(UserDTO userDTO);
     User findUserByEmail(String email);
-    Optional<User> findUserById(Integer id);
+    void save(User user);
 }

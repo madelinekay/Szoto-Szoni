@@ -23,7 +23,7 @@ public class User {
 //    private Date signUpDate;
     private int level;
     private String language;
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable
     private Set<Word> words;
 

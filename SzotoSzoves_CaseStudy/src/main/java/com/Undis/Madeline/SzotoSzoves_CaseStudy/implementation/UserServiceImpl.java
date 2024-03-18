@@ -18,7 +18,6 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository, WordRepository wordRepository, PasswordEncoder passwordEncoder) {
-//        what is this super for?
         super();
         this.userRepository = userRepository;
         this.wordRepository = wordRepository;
@@ -38,6 +37,10 @@ public class UserServiceImpl implements UserService {
     }
     public Optional<User> findUserById(Integer id) {
         return userRepository.findById(id);
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
     }
 
 }
