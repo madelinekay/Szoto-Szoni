@@ -21,26 +21,24 @@ public class SpringSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable())
         .authorizeHttpRequests((auth) -> auth
-//                sites you can access without authorization
                 .requestMatchers("/login", "/signup","/signup-process").permitAll()
                 .requestMatchers("/include/**", "/css/**", "/icons/**", "/images/**", "/js/**", "/layer/**", "/static/**").permitAll()
 //                this line should fix lab
-                .requestMatchers(HttpMethod.POST, "/signup/save", "/login").permitAll()
-//                pages for authenticated users
-                .requestMatchers("/collections", "/flashcard").authenticated())
+                .requestMatchers(HttpMethod.POST, "/signup/save", "/login", "/flashcard").permitAll()
+                .requestMatchers("/collections", "/flashcard").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/flashcard", "/collections").permitAll()
+        )
                .formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .successForwardUrl("/flashcard") // required for thymeleaf security extras
-
-//                 .defaultSuccessUrl("/flashcard")
+               .successForwardUrl("/flashcard") // required for thymeleaf security extras
+//                       .defaultSuccessUrl("/flashcard", true)
                 .permitAll()
         )
                 .logout(
                         logout -> logout
                                 .invalidateHttpSession(true)
                                 .clearAuthentication(true)
-        //                                I think this code just checks that logout is in the url pattern
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
                 );

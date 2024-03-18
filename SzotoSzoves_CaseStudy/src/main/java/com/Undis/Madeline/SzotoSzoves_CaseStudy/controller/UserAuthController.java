@@ -2,6 +2,7 @@ package com.Undis.Madeline.SzotoSzoves_CaseStudy.controller;
 
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.UserDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +14,29 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 public class UserAuthController {
     private UserService userService;
+//    private WordController wordController;
 
     @Autowired
     public UserAuthController(UserService userService) {
         this.userService = userService;
+//        this.wordController = wordController;
     }
-    @RequestMapping("/flashcard")
-    public String flashcard() {
-        return "flashcard";
-    }
-    @GetMapping("/collections")
-    public String collections() {
-        return "collections";
-    }
+//    @RequestMapping("/flashcard")
+//    public String flashcard() {
+//        return "flashcard";
+//    }
+//    @GetMapping("/collections")
+//    public String collections(Model model) {
+//        return "collections";
+//        List<Word> words = wordController.getWords();
+//        model.addAttribute("words", words);
+//        return "redirect:/WordController";
+//    }
 
 //    why wouldn't this also have post?
     @GetMapping ("/login")
