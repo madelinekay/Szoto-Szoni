@@ -33,13 +33,15 @@ public class UserAuthController {
 //        return "login.html";
 //    }
 
-
     @GetMapping("/signup")
     public String showRegistrationForm(Model model) {
         UserDTO user = new UserDTO();
         model.addAttribute("user", user);
         return "signup";
     }
+
+    @RequestMapping("/home")
+    public String returnFlashcard() { return "redirect:/flashcard";}
 
     @PostMapping("/signup/save")
     public String registration(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model) {

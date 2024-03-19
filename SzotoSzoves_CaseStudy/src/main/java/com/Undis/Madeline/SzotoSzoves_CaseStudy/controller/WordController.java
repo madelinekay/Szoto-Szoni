@@ -32,7 +32,7 @@ public class WordController {
 //        List<Word> words = wordService.getWords();
         String email = userDetails.getUsername();
         User user = userService.findUserByEmail(email);
-        List<Word> words = user.getWords().stream().toList();
+        List<Word> words = user.getWords().stream().toList(); // HERE
         model.addAttribute("words", words);
         return "collections";
     }
@@ -43,15 +43,24 @@ public class WordController {
 //        model.addAttribute("word", word);
 //        return "flashcard";
 //    }
-    @PostMapping ("/flashcard")
+    @GetMapping ("/flashcard")
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) {
     //    adding word to user words
-        String email = userDetails.getUsername();
-        User user = userService.findUserByEmail(email);
+//       todo add logic so that words dont repeat
+
         Word word = wordService.getWord();
-        user.getWords().add(word);
-        word.getUsers().add(user);
-        userService.save(user);
+        // TODO: consider handling this edge case
+//        if (!word) {
+//            throw some error;
+//        }
+
+//        TODO: fix this
+//        String email = userDetails.getUsername();
+//        User user = userService.findUserByEmail(email);
+//        user.getWords().add(word);
+//        word.getUsers().add(user);
+//        userService.save(user);
+
     //    adding word to model and returning flashcard view
         model.addAttribute("word", word);
         return "flashcard";
@@ -68,13 +77,22 @@ public class WordController {
 //        return "flashcard";  // name of the Thymeleaf template
 //    }
 //do  I need id in the set if I'm only removing from the user set? should I return the view to update the deleted item
-    @DeleteMapping("/deleteword/{id}")
-    public void deleteWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
-        System.out.println("deleting");
+    @GetMapping("/delete/{id}")
+    public String deleteWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
+//        System.out.println("deleting");
         String email = userDetails.getUsername();
+//        System.out.println("email" + " " + email);
         User user = userService.findUserByEmail(email);
     //        get word by id
-        Optional<Word> word = wordService.getWordById(id);
-        user.getWords().remove(word);
+        Optional<Word> optionalWord = wordService.getWordById(id);
+        optionalWord.ifPresent(word -> {
+//            user.getWords().remove(word); // HERE
+            word.getUsers().remove(user);
+            userService.save(user);
+//            wordService.save(word);
+
+    });
+
+        return "redirect:/collections";
     }
 }

@@ -36,7 +36,7 @@ public class SpringSecurity {
                 .formLogin(form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/perform_login")
-                                .successForwardUrl("/flashcard") // required for thymeleaf security extras
+                                .successForwardUrl("/home") // required for thymeleaf security extras
 //                       .defaultSuccessUrl("/flashcard", true)
                                 .permitAll()
                 )

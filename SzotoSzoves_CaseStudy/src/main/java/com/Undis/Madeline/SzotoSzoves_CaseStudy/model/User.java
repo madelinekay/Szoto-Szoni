@@ -38,15 +38,15 @@ public class User {
         this.words = words;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", level=" + level +
-                ", language='" + language + '\'' +
-                ", words=" + words +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", email='" + email + '\'' +
+//                ", password='" + password + '\'' +
+//                ", level=" + level +
+//                ", language='" + language + '\'' +
+//                ", words=" + words +
+//                '}';
+//    }
 }
