@@ -38,4 +38,17 @@ public class Word {
 //        this.lastSeen = lastSeen;
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", english='" + english + '\'' +
+                ", roots=" + roots +
+                ", difficulty=" + difficulty +
+                ", flagged=" + flagged +
+                ", users=" + users +
+                '}';
+    }
 }

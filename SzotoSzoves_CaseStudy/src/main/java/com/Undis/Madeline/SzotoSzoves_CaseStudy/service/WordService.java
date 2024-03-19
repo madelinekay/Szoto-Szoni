@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WordService {
@@ -18,13 +19,13 @@ public class WordService {
     }
 
     public Word getWord() {
-       Word word = wordRepository.findRandomWord();
-        System.out.println("word service" + " " + word);
+        Word word = wordRepository.findRandomWord();
         return word;
     }
     public List<Word> getWords() {
         return wordRepository.findAll();
     }
+    public Optional<Word> getWordById(int id) { return wordRepository.findById(id);}
 
 //    public void deleteWord() { return wordRepository.deleteById(id); }
 

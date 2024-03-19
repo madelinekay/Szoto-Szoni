@@ -19,26 +19,11 @@ import java.util.List;
 @Controller
 public class UserAuthController {
     private UserService userService;
-//    private WordController wordController;
-
     @Autowired
     public UserAuthController(UserService userService) {
         this.userService = userService;
-//        this.wordController = wordController;
     }
-//    @RequestMapping("/flashcard")
-//    public String flashcard() {
-//        return "flashcard";
-//    }
-//    @GetMapping("/collections")
-//    public String collections(Model model) {
-//        return "collections";
-//        List<Word> words = wordController.getWords();
-//        model.addAttribute("words", words);
-//        return "redirect:/WordController";
-//    }
 
-//    why wouldn't this also have post?
     @GetMapping ("/login")
     public String login() { return "login"; }
     // Login form with error
@@ -47,7 +32,8 @@ public class UserAuthController {
 //        model.addAttribute("loginError", true);
 //        return "login.html";
 //    }
-//this prepares registration for user with DTO
+
+
     @GetMapping("/signup")
     public String showRegistrationForm(Model model) {
         UserDTO user = new UserDTO();
@@ -55,7 +41,6 @@ public class UserAuthController {
         return "signup";
     }
 
-    // handler method to handle student registration from submit request
     @PostMapping("/signup/save")
     public String registration(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model) {
         User existingUser = userService.findUserByEmail(userDTO.getEmail());

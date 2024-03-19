@@ -35,4 +35,15 @@ public class Root {
 //        this.lastSeen = lastSeen;
         this.partOfSpeech = partOfSpeech;
     }
+
+    @Override
+    public String toString() {
+        return "Root{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", english='" + english + '\'' +
+                ", words=" + words +
+                ", partOfSpeech='" + partOfSpeech + '\'' +
+                '}';
+    }
 }
