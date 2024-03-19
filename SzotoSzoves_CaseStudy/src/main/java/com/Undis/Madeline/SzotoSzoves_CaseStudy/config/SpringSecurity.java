@@ -20,25 +20,26 @@ public class SpringSecurity {
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf((csrf) -> csrf.disable())
-        .authorizeHttpRequests((auth) -> auth
-                .requestMatchers("/","/login", "/signup","/signup-process").permitAll()
-//                this line should fix lab
-                .requestMatchers(HttpMethod.POST, "/signup/save", "/login", "/flashcard").permitAll()
-                .requestMatchers("/collections", "/flashcard", "/").authenticated()
-                .requestMatchers(HttpMethod.GET, "/flashcard", "/collections", "/").permitAll()
-                .requestMatchers("/include/**", "/css/**", "/icons/**", "/images/**", "/js/**", "/layer/**", "/static/**").permitAll()
-        )
-//might have worked with just "/static"
-               .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-               .successForwardUrl("/flashcard") // required for thymeleaf security extras
+                .authorizeHttpRequests((auth) -> auth
+//                .requestMatchers("/","/login", "/signup","/signup-process", "/perform_login").permitAll()
+////                this line should fix lab
+//                .requestMatchers(HttpMethod.POST, "/signup/save", "/perform_login").permitAll()
+//                .requestMatchers("/collections", "/flashcard", "delete/**").authenticated()
+////                .requestMatchers(HttpMethod.GET, "/flashcard", "/collections", "/", "delete/**").permitAll()
+//                .requestMatchers("/include/**", "/css/**", "/icons/**", "/images/**", "/js/**", "/layer/**").permitAll()
+                                .requestMatchers("**").permitAll() // TODO: remove this eventually
+                )
+                .formLogin(form -> form
+                                .loginPage("/login")
+                                .loginProcessingUrl("/perform_login")
+                                .successForwardUrl("/flashcard") // required for thymeleaf security extras
 //                       .defaultSuccessUrl("/flashcard", true)
-                .permitAll()
-        )
+                                .permitAll()
+                )
                 .logout(
                         logout -> logout
                                 .invalidateHttpSession(true)

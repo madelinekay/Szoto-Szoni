@@ -59,6 +59,7 @@ let validateForm = () => {
 }
 
 let deleteWord = () => {
+    console.log("here delete")
     const wordId = this.getAttribute('wordId');
     fetch(`/words/delete/${wordId}`), {
         method: 'DELETE',
