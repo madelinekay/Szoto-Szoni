@@ -23,9 +23,9 @@ public class User {
 //    private Date signUpDate;
     private int level;
     private String language;
-
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable
+//bidirectional relationship where user changes do not cascade to word
+    @ManyToMany
+//    @JoinTable not actually necessary
     private Set<Word> words;
 
     public User(int id, String email, String password, int level, String language, Set<Word> words) {

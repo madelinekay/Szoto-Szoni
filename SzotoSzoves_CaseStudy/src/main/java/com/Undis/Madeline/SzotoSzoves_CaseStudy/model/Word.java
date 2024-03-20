@@ -20,13 +20,20 @@ public class Word {
     int id;
     private String name;
     private String english;
-    @ManyToMany(cascade = CascadeType.ALL)
+//    deletion of word should not delete root but should delete the instance in the join table. updates to word should merge
+//    word: abc - deleting abc
+//    roots:  a b c
+//    root a: abc, ab -> abc should be deleted but ab should remain
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable
     private Set<Root> roots;
     private int difficulty;
     private boolean flagged;
 //    private Date lastSeen;
-    @ManyToMany(mappedBy = "words", cascade = CascadeType.ALL)
+
+//    do I need this? not actually used
+//    changes to word should affect user words - delete should matter, and update should matter
+    @ManyToMany(mappedBy = "words")
     private Set<User> users;
 
     public Word(int id, String name, String english, Set<Root> roots, int difficulty, Boolean flagged, Set<User> users) {

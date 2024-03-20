@@ -1,24 +1,21 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');*/
-/*html > body {*/
-/*    height: 100%;*/
-/*}*/
-/*nav {*/
-/*    height: 4rem;*/
-/*    border-bottom: 1px solid #E9ECEF;*/
-/*}*/
-/*.nav {*/
-/*    padding: 1.5rem;*/
-/*    border-right: 1px solid #E9ECEF;*/
-/*    width: 20rem;*/
-/*}*/
-/*.montserrat {*/
-/*    font-family: "Montserrat", sans-serif;*/
-/*    font-optical-sizing: auto;*/
-/*    font-style: normal;*/
-/*}*/
-/*.card:hover {*/
-/*    cursor: pointer;*/
-
-.div {
-    font-color:"red";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+html > body {
+    height: 100%;
+}
+nav {
+    height: 4rem;
+    border-bottom: 1px solid #E9ECEF;
+}
+.nav {
+    padding: 1.5rem;
+    border-right: 1px solid #E9ECEF;
+    width: 20rem;
+}
+.montserrat {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+.card:hover {
+    cursor: pointer;
 }

@@ -47,14 +47,13 @@ public class WordController {
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) {
     //    adding word to user words
 //       todo add logic so that words dont repeat
-
+        System.out.println("flashcard controller");
         Word word = wordService.getWord();
-        // TODO: consider handling this edge case
-//        if (!word) {
-//            throw some error;
-//        }
-
-//        TODO: fix this
+        System.out.println(word + "" + "word");
+        // TODO: handle edgecase
+        if (word == null) {
+            System.out.println("no word");
+        }
 //        String email = userDetails.getUsername();
 //        User user = userService.findUserByEmail(email);
 //        user.getWords().add(word);
@@ -63,7 +62,7 @@ public class WordController {
 
     //    adding word to model and returning flashcard view
         model.addAttribute("word", word);
-        return "flashcard";
+        return "/flashcard";
     }
 
 //    @GetMapping( "/")

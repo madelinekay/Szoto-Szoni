@@ -20,7 +20,8 @@ public class Root {
     int id;
     private String name;
     private String english;
-    @ManyToMany(mappedBy = "roots", cascade = CascadeType.ALL)
+//    if word is deleted or updated, word in set should be deleted or updated
+    @ManyToMany(mappedBy = "roots")
     private Set<Word> words;
 //    private int difficulty;
 //    private Date lastSeen;
