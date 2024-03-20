@@ -56,7 +56,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" th:href="@{'/delete/' + ${word.id}}" th:data-word-id="${word.id}">Delete</a></li>
-                        <li><button class="dropdown-item" href="#">Flag bad data</button></li>
+                        <li><a class="dropdown-item" th:href="@{'/flag/' + ${word.id}}" th:data-word-id="${word.id}">Flag bad data</a></li>
                     </ul>
                 </div></td>
             </tr>

@@ -42,10 +42,10 @@ public class WordController {
         return "collections";
     }
 
-    @GetMapping ("/flashcard")
+    @GetMapping("/flashcard")
 
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-    //    adding word to user words
+        //    adding word to user words
 //       todo add logic so that words dont repeat
         System.out.println("flashcard controller");
         Word word = wordService.getWord();
@@ -71,7 +71,7 @@ public class WordController {
 
 //        userService.save(user);
 
-    //    adding word to model and returning flashcard view
+        //    adding word to model and returning flashcard view
         model.addAttribute("roots", roots);
         model.addAttribute("word", word);
         model.addAttribute("isFlipped", false);
@@ -79,7 +79,7 @@ public class WordController {
     }
 
 
-//    @PostMapping("/flashcard")
+    //    @PostMapping("/flashcard")
 //    public String getWordFromChatGPT(Model model,  @AuthenticationPrincipal UserDetails userDetails) {
 //        WordDTO wordDTO = PythonAPIClient.getWord();
 //        model.addAttribute("word", wordDTO);
@@ -92,15 +92,32 @@ public class WordController {
 //        String email = userDetails.getUsername();
 //        System.out.println("email" + " " + email);
         User user = userService.findUserByEmail("test@test.com");
-    //        get word by id
+        //        get word by id
         Optional<Word> optionalWord = wordService.getWordById(id);
         optionalWord.ifPresent(word -> {
             user.getWords().remove(word);
             word.getUsers().remove(user);
             userService.save(user);
             wordService.save(word);
-    });
+        });
 
+        return "redirect:/collections";
+    }
+
+    @GetMapping("/flag/{id}")
+    public String flagWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
+//        String email = userDetails.getUsername();
+        User user = userService.findUserByEmail("test@test.com");
+        //        get word by id
+        System.out.println("inside controller");
+        for (Word word : user.getWords()) {
+            System.out.println(word);
+            if (word.getId() == id) {
+                word.setFlagged(true);
+                System.out.println("inside controller " + word.isFlagged());
+            }
+        }
+        userService.save(user);
         return "redirect:/collections";
     }
 }
