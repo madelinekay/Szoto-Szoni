@@ -1,6 +1,7 @@
-const data = [{code: "() => {}", question: "What type of function is this?", answer: "Is an anonymous function."}, {code: "var x = 5", question: "Is var recommended over const and let?", answer: "No. Unlike let/const var is function-scoped and not block-scoped. "}]
 
 let flipCard = () => {
+
+
     console.log("clicked")
     let curr_code = document.getElementById("code").innerText;
     let current_content= document.getElementsByClassName("card-text")[0]
