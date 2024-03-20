@@ -35,20 +35,15 @@ public class WordController {
     @GetMapping("/collections")
     public String getWords(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 //        List<Word> words = wordService.getWords();
-        String email = userDetails.getUsername();
-        User user = userService.findUserByEmail(email);
-        List<Word> words = user.getWords().stream().toList(); // HERE
+//        String email = userDetails.getUsername();
+        User user = userService.findUserByEmail("test@test.com");
+        List<Word> words = user.getWords().stream().toList();
         model.addAttribute("words", words);
         return "collections";
     }
 
-//    @PostMapping ("/flashcard")
-//    public String getWord(Model model) {
-//        Word word = wordService.getWord();
-//        model.addAttribute("word", word);
-//        return "flashcard";
-//    }
     @GetMapping ("/flashcard")
+
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) {
     //    adding word to user words
 //       todo add logic so that words dont repeat
@@ -83,10 +78,7 @@ public class WordController {
         return "/flashcard";
     }
 
-//    @GetMapping( "/")
-//    public String returnView() {
-//        return "flashcard";
-//    }
+
 //    @PostMapping("/flashcard")
 //    public String getWordFromChatGPT(Model model,  @AuthenticationPrincipal UserDetails userDetails) {
 //        WordDTO wordDTO = PythonAPIClient.getWord();
@@ -97,17 +89,16 @@ public class WordController {
     @GetMapping("/delete/{id}")
     public String deleteWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
 //        System.out.println("deleting");
-        String email = userDetails.getUsername();
+//        String email = userDetails.getUsername();
 //        System.out.println("email" + " " + email);
-        User user = userService.findUserByEmail(email);
+        User user = userService.findUserByEmail("test@test.com");
     //        get word by id
         Optional<Word> optionalWord = wordService.getWordById(id);
         optionalWord.ifPresent(word -> {
-//            user.getWords().remove(word); // HERE
+            user.getWords().remove(word);
             word.getUsers().remove(user);
             userService.save(user);
-//            wordService.save(word);
-
+            wordService.save(word);
     });
 
         return "redirect:/collections";
