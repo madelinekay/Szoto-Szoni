@@ -46,6 +46,29 @@
     .roots-container span:not(:last-child) .dot {
         display: inline;
     }
+    #flashcard .front {
+        display: flex;
+    }
+
+    #flashcard .back {
+        display: none;
+    }
+
+    #flashcard.flipped .front {
+        display: none;
+    }
+
+    #flashcard.flipped .back {
+        display: flex;
+    }
+    .card-body {
+        display: flex;
+        justify-content: center; align-items: center;
+        height: 100%;
+    }
+    .content {
+        padding:.75rem; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    }
 </style>
 </style>
 <body>
@@ -55,20 +78,21 @@
     <div th:replace="fragments/sidebar :: sidebar"></div>
     <form method="get" th:action="@{/flashcard}" class="d-flex flex-column w-100 h-100 align-items-center"
           style="padding: 2.3rem">
-        <div id="flashcard" class="card" style="height: 23rem; width: 23rem" th:data-isflipped="${isFlipped}"
-             th:data-front="${word.name}" th:data-back="${word.wordSequence}" onclick="flipCard()">
-            <div class="card-body front">
+        <div id="flashcard" class="card" style="height: 23rem; width: 23rem" onclick="flipCard()">
+            <div class="card-body" >
+            <div class="content front" >
                 <!--                <img id="card_image"    class="object-fit-contain" style="display: block; width: 12rem; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;" src="resources/computer.webp" alt="computer"/>-->
-                <div class="roots-container" style="padding:.75rem; display: flex; justify-content: center; align-items: center">
-                        <span th:each="root: ${roots}"><span th:text="${root.name}" th:class="${root.partOfSpeech}"></span><span class="dot">•</span></span>
+                <div class="roots-container" >
+                        <span th:each="root: ${roots}"><span style="font-size: 1.5rem; color: darkslategray" th:text="${root.name}" th:class="${root.partOfSpeech}"></span><span class="dot">•</span></span>
                 </div>
             </div>
-            <div class="card-body back">
+            <div class="content back">
                 <!--                <img id="card_image"    class="object-fit-contain" style="display: block; width: 12rem; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;" src="resources/computer.webp" alt="computer"/>-->
-                <h3 th:text="${word.english}"></h3>
+                <div style="font-size: 1.5rem; color: darkslategray" th:text="${word.english}"></div>
                 <div class="roots-container" style="padding:.75rem; display: flex; justify-content: center; align-items: center">
-                    <span th:each="root: ${roots}"><span th:text="${root.english}" th:class="${root.partOfSpeech}"></span><span class="dot">•</span></span>
+                    <span th:each="root: ${roots}"><span style="font-size: 1.25rem; color: darkslategray" th:text="${root.english}" th:class="${root.partOfSpeech}"></span><span class="dot">•</span></span>
                 </div>
+            </div>
             </div>
         </div>
         <div class="btn-group p-3" role="group" aria-label="Basic outlined example">
@@ -95,7 +119,7 @@
         </div>
     </form>
 </div>
-<!--<script th:src="@{/js/flashcard.js}"></script>-->
+<script th:src="@{/js/flashcard.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

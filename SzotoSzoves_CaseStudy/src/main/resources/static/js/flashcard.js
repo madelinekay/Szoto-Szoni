@@ -1,16 +1,17 @@
 
 let flipCard = () => {
     let flashcard = document.getElementById("flashcard");
-    let isFlipped = flashcard.getAttribute('data-isFlipped') == 'true';
-    let result = (!isFlipped).toString();
-    console.log("isFlipped: ", isFlipped);
-    console.log("result: ", result);
-    flashcard.setAttribute('data-isFlipped', result);
-
-    let flashcardContent = document.getElementById('flashcard-text')
-    let translation = flashcard.getAttribute('data-back');
-    let word = flashcard.getAttribute('data-front');
-    flashcardContent.textContent = isFlipped ? translation : word;
+    flashcard.classList.toggle('flipped');
+    // let isFlipped = flashcard.getAttribute('data-isFlipped') == 'true';
+    // let result = (!isFlipped).toString();
+    // console.log("isFlipped: ", isFlipped);
+    // console.log("result: ", result);
+    // flashcard.setAttribute('data-isFlipped', result);
+    //
+    // let flashcardContent = document.getElementById('flashcard-text')
+    // let translation = flashcard.getAttribute('data-back');
+    // let word = flashcard.getAttribute('data-front');
+    // flashcardContent.textContent = isFlipped ? translation : word;
 }
 
 
