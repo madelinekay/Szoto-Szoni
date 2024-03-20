@@ -20,6 +20,7 @@ public class Word {
     int id;
     private String name;
     private String english;
+    private String wordSequence;
 //    deletion of word should not delete root but should delete the instance in the join table. updates to word should merge
 //    word: abc - deleting abc
 //    roots:  a b c
@@ -36,7 +37,7 @@ public class Word {
     @ManyToMany(mappedBy = "words")
     private Set<User> users;
 
-    public Word(int id, String name, String english, Set<Root> roots, int difficulty, Boolean flagged, Set<User> users) {
+    public Word(int id, String name, String english, Set<Root> roots, int difficulty, Boolean flagged, Set<User> users, String wordSequence) {
         this.id = id;
         this.name = name;
         this.english = english;
@@ -44,6 +45,7 @@ public class Word {
         this.difficulty = difficulty;
 //        this.lastSeen = lastSeen;
         this.users = users;
+        this.wordSequence = wordSequence;
     }
 
 //    @Override

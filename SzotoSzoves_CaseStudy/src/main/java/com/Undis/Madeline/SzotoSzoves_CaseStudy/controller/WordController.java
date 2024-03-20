@@ -1,9 +1,11 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.controller;
 
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.WordDTO;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Root;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.PythonAPIClient;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.RootService;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.UserService;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,11 +23,13 @@ import java.util.Optional;
 public class WordController {
     private WordService wordService;
     private UserService userService;
+    private RootService rootService;
 
     @Autowired
-    public WordController(WordService wordService, UserService userService) {
+    public WordController(WordService wordService, UserService userService, RootService rootService) {
         this.wordService = wordService;
         this.userService = userService;
+        this.rootService = rootService;
     }
 
     @GetMapping("/collections")
@@ -54,13 +59,25 @@ public class WordController {
         if (word == null) {
             System.out.println("no word");
         }
+        String[] rootStrings = word.getWordSequence().split(" ");
+        System.out.println("word controller " + rootStrings);
+        List<Root> roots = new ArrayList<>();
+        for (String rootString : rootStrings) {
+            Root root = rootService.getRootByName(rootString);
+            System.out.println("word controller " + root);
+            roots.add(root);
+        }
+        System.out.println("roots " + roots);
+
 //        String email = userDetails.getUsername();
 //        User user = userService.findUserByEmail(email);
 //        user.getWords().add(word);
 //        word.getUsers().add(user);
+
 //        userService.save(user);
 
     //    adding word to model and returning flashcard view
+        model.addAttribute("roots", roots);
         model.addAttribute("word", word);
         model.addAttribute("isFlipped", false);
         return "/flashcard";

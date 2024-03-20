@@ -13,19 +13,7 @@ let flipCard = () => {
     flashcardContent.textContent = isFlipped ? translation : word;
 }
 
-let advanceCard = () => {
-    let curr_code = document.getElementById("code");
-    for (let i=0; i<data.length; i++) {
-        if (data[i].code == curr_code.innerText) {
-            if (i+1 < data.length) {
-                curr_code.innerText = data[i+1].code;
-                document.getElementsByClassName("card-text")[0].innerText = data[i+1].question
-                return
-            }
-        }
-    }
-    alert("No more cards.")
-}
+
 
 // todo save words in the session
 let getPreviousCard = () => {

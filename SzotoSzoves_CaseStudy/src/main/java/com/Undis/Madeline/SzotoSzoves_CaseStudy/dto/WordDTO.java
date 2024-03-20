@@ -13,6 +13,16 @@ public class WordDTO {
     private String name;
     @NotEmpty
     private String english;
+    @NotEmpty
+    private String wordSequence;
+
+    public String getWordSequence() {
+        return wordSequence;
+    }
+
+    public void setWordSequence(String wordSequence) {
+        this.wordSequence = wordSequence;
+    }
 
     public String getName() {
         return name;
