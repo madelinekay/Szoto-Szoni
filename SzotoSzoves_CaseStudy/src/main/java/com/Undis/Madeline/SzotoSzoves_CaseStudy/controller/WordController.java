@@ -62,6 +62,7 @@ public class WordController {
 
     //    adding word to model and returning flashcard view
         model.addAttribute("word", word);
+        model.addAttribute("isFlipped", false);
         return "/flashcard";
     }
 

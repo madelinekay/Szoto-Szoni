@@ -1,23 +1,16 @@
 
 let flipCard = () => {
+    let flashcard = document.getElementById("flashcard");
+    let isFlipped = flashcard.getAttribute('data-isFlipped') == 'true';
+    let result = (!isFlipped).toString();
+    console.log("isFlipped: ", isFlipped);
+    console.log("result: ", result);
+    flashcard.setAttribute('data-isFlipped', result);
 
-
-    console.log("clicked")
-    let curr_code = document.getElementById("code").innerText;
-    let current_content= document.getElementsByClassName("card-text")[0]
-    let image = document.getElementById("card_image")
-    for (let obj of data) {
-        console.log(obj.code)
-        if (obj.code == curr_code) {
-            if (current_content.innerText == obj.question) {
-                current_content.innerText = obj.answer
-                image.src = "./resources/giphy.gif"
-            } else {
-                current_content.innerText = obj.question
-                image.src = "./resources/computer.webp"
-            }
-        }
-    }
+    let flashcardContent = document.getElementById('flashcard-text')
+    let translation = flashcard.getAttribute('data-back');
+    let word = flashcard.getAttribute('data-front');
+    flashcardContent.textContent = isFlipped ? translation : word;
 }
 
 let advanceCard = () => {
@@ -34,6 +27,7 @@ let advanceCard = () => {
     alert("No more cards.")
 }
 
+// todo save words in the session
 let getPreviousCard = () => {
     let curr_code = document.getElementById("code");
     console.log(curr_code.innerText)

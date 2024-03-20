@@ -34,13 +34,13 @@
 <div class="d-flex h-100" >
     <div th:replace="fragments/sidebar :: sidebar"></div>
     <form method="get" th:action="@{/flashcard}" class="d-flex flex-column w-100 h-100 align-items-center" style="padding: 2.3rem">
-        <div class="card" style="height: 23rem; width: 23rem" th:data-isflipped="${isFlipped}" onclick="flipCard()">
+        <div id="flashcard" class="card" style="height: 23rem; width: 23rem" th:data-isflipped="${isFlipped}" th:data-front="${word.name}" th:data-back="${word.english}" onclick="flipCard()">
             <div class="card-body" >
                 <!--                        on hover : root translation -->
 <!--                <img id="card_image"    class="object-fit-contain" style="display: block; width: 12rem; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;" src="resources/computer.webp" alt="computer"/>-->
                 <div style="padding:.75rem" >
-<!--                    <p th:text="${isFlipped ? word.english : word.name}">word</p>-->
-                    <p th:text="${word.name}">word</p>
+                    <p id="flashcard-text" th:text="${ isFlipped ? word.english : word.name }">word</p>
+<!--                    <p th:text="${word.name}">word</p>-->
 
 <!--                    <span id="code" th:each="root : ${roots}" th:text="${root.name}" class="card-title badge rounded-pill text-bg-primary">root</span>-->
                 </div>
