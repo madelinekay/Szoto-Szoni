@@ -43,7 +43,6 @@ public class WordController {
     }
 
     @GetMapping("/flashcard")
-
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         //    adding word to user words
 //       todo add logic so that words dont repeat
@@ -65,11 +64,11 @@ public class WordController {
         System.out.println("roots " + roots);
 
 //        String email = userDetails.getUsername();
-//        User user = userService.findUserByEmail(email);
-//        user.getWords().add(word);
-//        word.getUsers().add(user);
+        User user = userService.findUserByEmail("test@test.com");
+        user.getWords().add(word);
+        word.getUsers().add(user);
 
-//        userService.save(user);
+        userService.save(user);
 
         //    adding word to model and returning flashcard view
         model.addAttribute("roots", roots);
@@ -106,10 +105,8 @@ public class WordController {
 
     @GetMapping("/flag/{id}")
     public String flagWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
-//        String email = userDetails.getUsername();
-        User user = userService.findUserByEmail("test@test.com");
-        //        get word by id
-        System.out.println("inside controller");
+//        String email = userDetails.getUsername();''
+       User user = userService.findUserByEmail("test@test.com");
         for (Word word : user.getWords()) {
             System.out.println(word);
             if (word.getId() == id) {
