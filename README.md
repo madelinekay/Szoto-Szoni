@@ -5,7 +5,9 @@
 
 ## Demo
 
-[![Demo](https://youtu.be/9dZOdoofR2w)](https://github.com/madelinekay/roots_capstone/assets/61764962/77805220-1b40-4353-8a67-e431ce154b96)
+
+https://github.com/madelinekay/roots_capstone/assets/61764962/5db2c65f-63cb-4891-839c-ca9df5265a6a
+
 
 Roots and words are connected using a custom join table storing the position of the root. Words are rendered as a sequence of roots, with tooltips and highlights corresponding to each root's part-of-speech.
 
