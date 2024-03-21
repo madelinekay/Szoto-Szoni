@@ -32,14 +32,14 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="d-flex h-100" >
     <div th:replace="fragments/sidebar :: sidebar"></div>
-    <div class="d-flex flex-column w-100 h-100 align-items-center" style="padding: 2.3rem">
-        <h2>Quick review</h2>
+    <div class="d-flex flex-column w-100 h-100" style="padding: 2.3rem">
+        <h2 class="mb-4">Quick review</h2>
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">Hungarian</th>
                 <th scope="col">English</th>
-                <th scope="col">Flagged</th>
+                <th scope="col">Flagged incorrect</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -55,7 +55,7 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{'/delete/' + ${word.id}}" th:data-word-id="${word.id}">Delete</a></li>
+                        <li><a class="dropdown-item" th:href="@{'/delete/' + ${word.id}}" th:data-word-id="${word.id}">Delete from user collection</a></li>
                         <li><a class="dropdown-item" th:href="@{'/flag/' + ${word.id}}" th:data-word-id="${word.id}">Flag bad data</a></li>
                     </ul>
                 </div></td>

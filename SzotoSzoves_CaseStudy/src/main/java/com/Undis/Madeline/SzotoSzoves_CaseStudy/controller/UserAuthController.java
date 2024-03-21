@@ -55,7 +55,7 @@ public class UserAuthController {
             return "/signup";
         }
         userService.saveUser(userDTO);
-        return "redirect:/index";
+        return "redirect:/login";
     }
 }
 

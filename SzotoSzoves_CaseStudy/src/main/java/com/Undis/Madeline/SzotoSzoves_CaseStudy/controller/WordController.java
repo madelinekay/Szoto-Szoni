@@ -70,7 +70,7 @@ public class WordController {
         }
         System.out.println("roots " + roots);
 
-//        String email = userDetails.getUsername();
+        String email = userDetails.getUsername();
         User user = userService.findUserByEmail("test@test.com");
         user.getWords().add(word);
         word.getUsers().add(user);
@@ -95,7 +95,7 @@ public class WordController {
     @GetMapping("/delete/{id}")
     public String deleteWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
 //        System.out.println("deleting");
-//        String email = userDetails.getUsername();
+        String email = userDetails.getUsername();
 //        System.out.println("email" + " " + email);
         User user = userService.findUserByEmail("test@test.com");
         //        get word by id

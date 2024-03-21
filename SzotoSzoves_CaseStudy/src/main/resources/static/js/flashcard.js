@@ -2,6 +2,7 @@
 let flipCard = () => {
     let flashcard = document.getElementById("flashcard");
     flashcard.classList.toggle('flipped');
+
     // let isFlipped = flashcard.getAttribute('data-isFlipped') == 'true';
     // let result = (!isFlipped).toString();
     // console.log("isFlipped: ", isFlipped);

@@ -69,6 +69,17 @@
     .content {
         padding:.75rem; display: flex; flex-direction: column; justify-content: center; align-items: center;
     }
+    .card {
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+    }
+
+    .card.flipped {
+        transform: rotateY(180deg);
+    }
+    .back {
+        transform: rotateY(180deg);
+    }
 </style>
 </style>
 <body>
