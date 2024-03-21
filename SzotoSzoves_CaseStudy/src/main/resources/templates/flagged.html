@@ -33,32 +33,18 @@
 <div class="d-flex h-100" >
     <div th:replace="fragments/sidebar :: sidebar"></div>
     <div class="d-flex flex-column w-100 h-100 align-items-center" style="padding: 2.3rem">
-        <h2>Quick review</h2>
+        <h2>Flagged words</h2>
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">Hungarian</th>
                 <th scope="col">English</th>
-                <th scope="col">Flagged</th>
-                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody >
-            <tr th:each="word :${words}">
+            <tr th:each="word :${flaggedWords}">
                 <td th:text="${word.name}">word name</td>
                 <td th:text="${word.english}">translation</td>
-                <td th:text="${word.flagged ? 'true' : 'false'}">flagged</td>
-                <td><div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-                        </svg>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{'/delete/' + ${word.id}}" th:data-word-id="${word.id}">Delete</a></li>
-                        <li><a class="dropdown-item" th:href="@{'/flag/' + ${word.id}}" th:data-word-id="${word.id}">Flag bad data</a></li>
-                    </ul>
-                </div></td>
             </tr>
             </tbody>
         </table>

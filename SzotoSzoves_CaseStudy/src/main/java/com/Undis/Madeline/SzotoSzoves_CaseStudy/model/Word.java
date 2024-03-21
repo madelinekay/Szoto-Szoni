@@ -1,5 +1,6 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.model;
 
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.constants.SQLQueries;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString
+@NamedNativeQuery(name="Word.getFlaggedWords", query = SQLQueries.GET_FLAGGED_WORDS, resultClass = Word.class)
 public class Word {
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )

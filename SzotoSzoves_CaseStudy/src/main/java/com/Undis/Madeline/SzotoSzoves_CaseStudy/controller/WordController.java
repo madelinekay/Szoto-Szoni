@@ -32,6 +32,13 @@ public class WordController {
         this.rootService = rootService;
     }
 
+    @GetMapping("/flagged")
+    public String getFlaggedWords(Model model) {
+        List<Word> flaggedWords = wordService.getFlaggedWords();
+        model.addAttribute("flaggedWords", flaggedWords);
+        return "/flagged";
+    }
+
     @GetMapping("/collections")
     public String getWords(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 //        List<Word> words = wordService.getWords();

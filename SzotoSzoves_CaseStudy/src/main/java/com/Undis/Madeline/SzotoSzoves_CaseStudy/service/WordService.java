@@ -3,6 +3,9 @@ package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Root;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordRepository;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,8 @@ import java.util.Optional;
 
 @Service
 public class WordService {
+    @PersistenceContext
+    private EntityManager entityManager;
     private WordRepository wordRepository;
 
     @Autowired
@@ -29,5 +34,10 @@ public class WordService {
 
 //    public void deleteWord() { return wordRepository.deleteById(id); }
     public void save(Word word) { wordRepository.save(word); }
+
+    public List<Word> getFlaggedWords() {
+        List<Word> words = entityManager.createNamedQuery("Word.getFlaggedWords").setParameter(1, true).getResultList();
+        return words;
+    }
 }
 
