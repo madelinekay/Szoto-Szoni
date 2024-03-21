@@ -5,10 +5,7 @@
 
 ## Demo
 
-<video src="static/demo.mov" controls>
-  Your browser does not support the video tag.
-</video>
-
+![Demo](https://youtu.be/9dZOdoofR2w)
 Roots and words are connected using a custom join table storing the position of the root. Words are rendered as a sequence of roots, with tooltips and highlights corresponding to each root's part-of-speech.
 
 <img  alt="Screen Shot 2022-02-25 at 1 25 04 PM" src="static/entity-diagram.png">
