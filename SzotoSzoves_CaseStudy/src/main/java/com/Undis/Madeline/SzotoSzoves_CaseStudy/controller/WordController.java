@@ -33,18 +33,22 @@ public class WordController {
     }
 
     @GetMapping("/flagged")
-    public String getFlaggedWords(Model model) {
+    public String getFlaggedWords(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         List<Word> flaggedWords = wordService.getFlaggedWords();
         model.addAttribute("flaggedWords", flaggedWords);
+        String email = userDetails.getUsername();
+        User user = userService.findUserByEmail(email);
+        model.addAttribute("user", user);
         return "/flagged";
     }
 
     @GetMapping("/collections")
     public String getWords(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 //        List<Word> words = wordService.getWords();
-//        String email = userDetails.getUsername();
-        User user = userService.findUserByEmail("test@test.com");
+        String email = userDetails.getUsername();
+        User user = userService.findUserByEmail(email);
         List<Word> words = user.getWords().stream().toList();
+        model.addAttribute("user", user);
         model.addAttribute("words", words);
         return "collections";
     }
@@ -71,13 +75,14 @@ public class WordController {
         System.out.println("roots " + roots);
 
         String email = userDetails.getUsername();
-        User user = userService.findUserByEmail("test@test.com");
+        User user = userService.findUserByEmail(email);
         user.getWords().add(word);
         word.getUsers().add(user);
 
         userService.save(user);
 
         //    adding word to model and returning flashcard view
+        model.addAttribute("user", user);
         model.addAttribute("roots", roots);
         model.addAttribute("word", word);
         model.addAttribute("isFlipped", false);
@@ -92,13 +97,11 @@ public class WordController {
 //        return "flashcard";  // name of the Thymeleaf template
 //    }
 //do  I need id in the set if I'm only removing from the user set? should I return the view to update the deleted item
+    // TODO: @DeleteMapping("/words/{id}")
     @GetMapping("/delete/{id}")
     public String deleteWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
-//        System.out.println("deleting");
         String email = userDetails.getUsername();
-//        System.out.println("email" + " " + email);
-        User user = userService.findUserByEmail("test@test.com");
-        //        get word by id
+        User user = userService.findUserByEmail(email);
         Optional<Word> optionalWord = wordService.getWordById(id);
         optionalWord.ifPresent(word -> {
             user.getWords().remove(word);
@@ -112,8 +115,8 @@ public class WordController {
 
     @GetMapping("/flag/{id}")
     public String flagWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
-//        String email = userDetails.getUsername();''
-       User user = userService.findUserByEmail("test@test.com");
+        String email = userDetails.getUsername();
+        User user = userService.findUserByEmail(email);
         for (Word word : user.getWords()) {
             System.out.println(word);
             if (word.getId() == id) {

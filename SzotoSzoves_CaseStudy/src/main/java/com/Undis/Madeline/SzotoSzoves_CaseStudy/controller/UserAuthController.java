@@ -13,19 +13,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
 public class UserAuthController {
     private UserService userService;
+
     @Autowired
     public UserAuthController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping ("/login")
-    public String login() { return "login"; }
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
     // Login form with error
 //    @RequestMapping("/login-error.html")
 //    public String loginError(Model model) {
@@ -41,13 +45,20 @@ public class UserAuthController {
     }
 
     @RequestMapping("/home")
-    public String returnFlashcard() { return "redirect:/flashcard";}
+    public String returnFlashcard() {
+        return "redirect:/flashcard";
+    }
 
     @PostMapping("/signup/save")
-    public String registration(@Valid @ModelAttribute("user") UserDTO userDTO, BindingResult result, Model model) {
+    public String registration(
+            @Valid @ModelAttribute("user") UserDTO userDTO,
+            BindingResult result,
+            Model model,
+            RedirectAttributes redirAttrs
+    ) {
         User existingUser = userService.findUserByEmail(userDTO.getEmail());
 //        TODO verify if this message will be injected into thymeleaf
-        if(existingUser != null){
+        if (existingUser != null) {
             result.rejectValue("email", null, "There is already an account registered with the same email");
         }
         if (result.hasErrors()) {
@@ -55,6 +66,7 @@ public class UserAuthController {
             return "/signup";
         }
         userService.saveUser(userDTO);
+        redirAttrs.addFlashAttribute("message", "Signup successful. Please login.");
         return "redirect:/login";
     }
 }
