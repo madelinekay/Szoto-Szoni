@@ -32,15 +32,7 @@ public class WordController {
         this.rootService = rootService;
     }
 
-    @GetMapping("/flagged")
-    public String getFlaggedWords(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        List<Word> flaggedWords = wordService.getFlaggedWords();
-        model.addAttribute("flaggedWords", flaggedWords);
-        String email = userDetails.getUsername();
-        User user = userService.findUserByEmail(email);
-        model.addAttribute("user", user);
-        return "/flagged";
-    }
+
 
 
 
