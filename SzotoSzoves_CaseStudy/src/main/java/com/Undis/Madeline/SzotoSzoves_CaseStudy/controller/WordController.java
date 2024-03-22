@@ -42,50 +42,41 @@ public class WordController {
         return "/flagged";
     }
 
-    @GetMapping("/collections")
-    public String getWords(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-//        List<Word> words = wordService.getWords();
-        String email = userDetails.getUsername();
-        User user = userService.findUserByEmail(email);
-        List<Word> words = user.getWords().stream().toList();
-        model.addAttribute("user", user);
-        model.addAttribute("words", words);
-        return "collections";
-    }
+
 
     @GetMapping("/flashcard")
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         //    adding word to user words
 //       todo add logic so that words dont repeat
-        System.out.println("flashcard controller");
-        Word word = wordService.getWord();
-        System.out.println(word + "" + "word");
-        // TODO: handle edgecase
-        if (word == null) {
-            System.out.println("no word");
-        }
-        String[] rootStrings = word.getWordSequence().split(" ");
-        System.out.println("word controller " + rootStrings);
-        List<Root> roots = new ArrayList<>();
-        for (String rootString : rootStrings) {
-            Root root = rootService.getRootByName(rootString);
-            System.out.println("word controller " + root);
-            roots.add(root);
-        }
-        System.out.println("roots " + roots);
-
-        String email = userDetails.getUsername();
-        User user = userService.findUserByEmail(email);
-        user.getWords().add(word);
-        word.getUsers().add(user);
-
-        userService.save(user);
-
-        //    adding word to model and returning flashcard view
-        model.addAttribute("user", user);
-        model.addAttribute("roots", roots);
-        model.addAttribute("word", word);
-        model.addAttribute("isFlipped", false);
+//        System.out.println("flashcard controller");
+//        Word word = wordService.getWord();
+//        System.out.println(word + "" + "word");
+//        // TODO: handle edgecase
+//        if (word == null) {
+//            System.out.println("no word");
+//        }
+//        String[] rootStrings = word.getWordSequence().split(" ");
+//        System.out.println("word controller " + rootStrings);
+//        List<Root> roots = new ArrayList<>();
+//        for (String rootString : rootStrings) {
+//            Root root = rootService.getRootByName(rootString);
+//            System.out.println("word controller " + root);
+//            roots.add(root);
+//        }
+//        System.out.println("roots " + roots);
+//
+//        String email = userDetails.getUsername();
+//        User user = userService.findUserByEmail(email);
+//        user.getWords().add(word);
+//        word.getUsers().add(user);
+//
+//        userService.save(user);
+//
+//        //    adding word to model and returning flashcard view
+//        model.addAttribute("user", user);
+//        model.addAttribute("roots", roots);
+//        model.addAttribute("word", word);
+//        model.addAttribute("isFlipped", false);
         return "/flashcard";
     }
 
@@ -100,31 +91,31 @@ public class WordController {
     // TODO: @DeleteMapping("/words/{id}")
     @GetMapping("/delete/{id}")
     public String deleteWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
-        String email = userDetails.getUsername();
-        User user = userService.findUserByEmail(email);
-        Optional<Word> optionalWord = wordService.getWordById(id);
-        optionalWord.ifPresent(word -> {
-            user.getWords().remove(word);
-            word.getUsers().remove(user);
-            userService.save(user);
-            wordService.save(word);
-        });
+//        String email = userDetails.getUsername();
+//        User user = userService.findUserByEmail(email);
+//        Optional<Word> optionalWord = wordService.getWordById(id);
+//        optionalWord.ifPresent(word -> {
+//            user.getWords().remove(word);
+//            word.getUsers().remove(user);
+//            userService.save(user);
+//            wordService.save(word);
+//        });
 
         return "redirect:/collections";
     }
 
     @GetMapping("/flag/{id}")
     public String flagWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
-        String email = userDetails.getUsername();
-        User user = userService.findUserByEmail(email);
-        for (Word word : user.getWords()) {
-            System.out.println(word);
-            if (word.getId() == id) {
-                word.setFlagged(true);
-                System.out.println("inside controller " + word.isFlagged());
-            }
-        }
-        userService.save(user);
+//        String email = userDetails.getUsername();
+//        User user = userService.findUserByEmail(email);
+//        for (Word word : user.getWords()) {
+//            System.out.println(word);
+//            if (word.getId() == id) {
+//                word.setFlagged(true);
+//                System.out.println("inside controller " + word.isFlagged());
+//            }
+//        }
+//        userService.save(user);
         return "redirect:/collections";
     }
 }
