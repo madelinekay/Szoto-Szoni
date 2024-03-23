@@ -80,34 +80,5 @@ public class WordController {
 //        return "flashcard";  // name of the Thymeleaf template
 //    }
 //do  I need id in the set if I'm only removing from the user set? should I return the view to update the deleted item
-    // TODO: @DeleteMapping("/words/{id}")
-    @GetMapping("/delete/{id}")
-    public String deleteWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
-//        String email = userDetails.getUsername();
-//        User user = userService.findUserByEmail(email);
-//        Optional<Word> optionalWord = wordService.getWordById(id);
-//        optionalWord.ifPresent(word -> {
-//            user.getWords().remove(word);
-//            word.getUsers().remove(user);
-//            userService.save(user);
-//            wordService.save(word);
-//        });
 
-        return "redirect:/collections";
-    }
-
-    @GetMapping("/flag/{id}")
-    public String flagWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
-//        String email = userDetails.getUsername();
-//        User user = userService.findUserByEmail(email);
-//        for (Word word : user.getWords()) {
-//            System.out.println(word);
-//            if (word.getId() == id) {
-//                word.setFlagged(true);
-//                System.out.println("inside controller " + word.isFlagged());
-//            }
-//        }
-//        userService.save(user);
-        return "redirect:/collections";
-    }
 }
