@@ -1,8 +1,12 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.exceptions.NoWordsFoundException;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Root;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordRepository;
+import groovy.util.logging.Log4j;
+import groovy.util.logging.Log4j2;
+import groovy.util.logging.Slf4j;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -13,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class WordService {
     @PersistenceContext
     private EntityManager entityManager;
@@ -23,9 +28,14 @@ public class WordService {
         this.wordRepository = wordRepository;
     }
 
-    public Word getWord() {
+    public Word getWord() throws NoWordsFoundException {
         Word word = wordRepository.findRandomWord();
+
+        if (word == null) {
+            throw new NoWordsFoundException("Random word not returned - database is empty.");
+        }
         return word;
+
     }
     public List<Word> getWords() {
         return wordRepository.findAll();

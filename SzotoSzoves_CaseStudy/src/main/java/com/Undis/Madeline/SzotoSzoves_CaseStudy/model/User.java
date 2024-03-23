@@ -23,19 +23,16 @@ public class User {
 //    private Date signUpDate;
     private int level;
     private String language;
-//bidirectional relationship where user changes do not cascade to word
-    @ManyToMany
-//    @JoinTable not actually necessary
-    private Set<Word> words;
+    @OneToMany(mappedBy = "user")
+    private Set<UserWord> userWords;
 
-    public User(int id, String email, String password, int level, String language, Set<Word> words) {
+    public User(int id, String email, String password, int level, String language, Set<UserWord> userWords) {
         this.id = id;
         this.email = email;
         this.password = password;
-//        this.signUpDate = signUpDate;
         this.level = level;
         this.language = language;
-        this.words = words;
+        this.userWords = userWords;
     }
 
 //    @Override

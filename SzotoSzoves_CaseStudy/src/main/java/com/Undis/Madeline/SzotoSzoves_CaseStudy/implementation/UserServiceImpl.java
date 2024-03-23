@@ -5,12 +5,14 @@ import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.UserRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.UserService;
+import groovy.util.logging.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 //    why do we need all these instance variables when we could just import? will these even be used in the logic of an instance?
     private UserRepository userRepository;

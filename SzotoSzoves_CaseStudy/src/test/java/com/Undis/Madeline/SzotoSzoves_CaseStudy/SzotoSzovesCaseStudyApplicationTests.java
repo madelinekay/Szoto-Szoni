@@ -1,5 +1,6 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy;
 
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.exceptions.NoWordsFoundException;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Root;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
@@ -30,7 +31,7 @@ class SzotoSzovesCaseStudyApplicationTests {
 	private UserService userService;
 
 	@Test
-	 void wordNotNull() {
+	 void wordNotNull() throws NoWordsFoundException {
 		assertNotNull(wordService.getWord(), "word should not be null");
 	}
 
@@ -49,7 +50,7 @@ class SzotoSzovesCaseStudyApplicationTests {
 		assertEquals(user.getId(), Integer.parseInt(arguments.getString(1)));
 	}
 //	test driven development
-	void rootsAreRenderedInOrder() {
+	void rootsAreRenderedInOrder() throws NoWordsFoundException {
 		List<String> sequence = new ArrayList<>(Arrays.asList("szó", "kapcsol", "at"));
 		Word word = wordService.getWord();
 //		call root service getting roots and sorting in order
