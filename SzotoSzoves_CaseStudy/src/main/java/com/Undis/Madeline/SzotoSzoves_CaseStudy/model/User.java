@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+//@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class User {
     private String password;
     private int level;
     private String language;
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<UserWord> userWords;
 
     public User(int id, String email, String password, int level, String language, Set<UserWord> userWords) {
@@ -43,8 +43,8 @@ public class User {
         return id == user.id && level == user.level && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(language, user.language) && Objects.equals(userWords, user.userWords);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, password, level, language, userWords);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, email, password, level, language, userWords);
+//    }
 }

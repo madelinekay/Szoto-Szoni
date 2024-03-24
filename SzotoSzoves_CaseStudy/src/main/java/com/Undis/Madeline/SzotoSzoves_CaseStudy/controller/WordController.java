@@ -1,13 +1,11 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.controller;
 
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.UserWordDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.WordDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Root;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.PythonAPIClient;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.RootService;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.UserService;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.WordService;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,61 +22,49 @@ public class WordController {
     private WordService wordService;
     private UserService userService;
     private RootService rootService;
+    private UserWordService userWordService;
 
     @Autowired
-    public WordController(WordService wordService, UserService userService, RootService rootService) {
+    public WordController(WordService wordService, UserWordService userWordService, UserService userService, RootService rootService) {
         this.wordService = wordService;
         this.userService = userService;
         this.rootService = rootService;
+        this.userWordService = userWordService;
     }
-
-
-
-
 
     @GetMapping("/flashcard")
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        //    adding word to user words
 //       todo add logic so that words dont repeat
-//        System.out.println("flashcard controller");
-//        Word word = wordService.getWord();
-//        System.out.println(word + "" + "word");
+        Word word = wordService.getWord();
 //        // TODO: handle edgecase
-//        if (word == null) {
-//            System.out.println("no word");
-//        }
-//        String[] rootStrings = word.getWordSequence().split(" ");
-//        System.out.println("word controller " + rootStrings);
-//        List<Root> roots = new ArrayList<>();
-//        for (String rootString : rootStrings) {
-//            Root root = rootService.getRootByName(rootString);
-//            System.out.println("word controller " + root);
-//            roots.add(root);
-//        }
-//        System.out.println("roots " + roots);
-//
-//        String email = userDetails.getUsername();
-//        User user = userService.findUserByEmail(email);
-//        user.getWords().add(word);
-//        word.getUsers().add(user);
-//
-//        userService.save(user);
-//
-//        //    adding word to model and returning flashcard view
-//        model.addAttribute("user", user);
-//        model.addAttribute("roots", roots);
-//        model.addAttribute("word", word);
-//        model.addAttribute("isFlipped", false);
+        if (word == null) {
+            System.out.println("no word");
+        }
+        String[] rootStrings = word.getWordSequence().split(" ");
+        System.out.println("word controller " + rootStrings);
+        List<Root> roots = new ArrayList<>();
+        for (String rootString : rootStrings) {
+            Root root = rootService.getRootByName(rootString);
+            System.out.println("word controller " + root);
+            roots.add(root);
+        }
+
+        String email = userDetails.getUsername();
+        User user = userService.findUserByEmail(email);
+
+        UserWordDTO userWordDTO = new UserWordDTO();
+        userWordDTO.setName(word.getName());
+        userWordDTO.setEnglish(word.getEnglish());
+        userWordDTO.setUser(user);
+        userWordDTO.setWord(word);
+        userWordService.convertToUserWordEntity(userWordDTO, user);
+        userService.save(user);
+        //    adding word to model and returning flashcard view
+        model.addAttribute("user", user);
+        model.addAttribute("roots", roots);
+        model.addAttribute("word", word);
+        model.addAttribute("isFlipped", false);
         return "/flashcard";
     }
-
-
-    //    @PostMapping("/flashcard")
-//    public String getWordFromChatGPT(Model model,  @AuthenticationPrincipal UserDetails userDetails) {
-//        WordDTO wordDTO = PythonAPIClient.getWord();
-//        model.addAttribute("word", wordDTO);
-//        return "flashcard";  // name of the Thymeleaf template
-//    }
-//do  I need id in the set if I'm only removing from the user set? should I return the view to update the deleted item
 
 }

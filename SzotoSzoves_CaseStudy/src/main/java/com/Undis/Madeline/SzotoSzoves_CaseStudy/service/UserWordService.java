@@ -1,5 +1,6 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.UserWordDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.UserWord;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
@@ -51,5 +52,16 @@ public class UserWordService {
         } catch (Exception e) {
             logger.atError();
         }
+    }
+    @Transactional
+    public void convertToUserWordEntity(UserWordDTO userWordDTO, User user) {
+        UserWord userWord = new UserWord();
+        userWord.setName(userWordDTO.getName());
+        userWord.setEnglish(userWordDTO.getEnglish());
+        userWord.setFlagged(false);
+        userWord.setUser(userWordDTO.getUser());
+        userWord.setWord(userWordDTO.getWord());
+        userWordRepository.save(userWord);
+        user.getUserWords().add(userWord);
     }
 }

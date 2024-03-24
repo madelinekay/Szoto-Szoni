@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+//@ToString
 public class Word {
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -49,8 +49,8 @@ public class Word {
         return id == word.id && difficulty == word.difficulty && flagged == word.flagged && Objects.equals(name, word.name) && Objects.equals(english, word.english) && Objects.equals(wordSequence, word.wordSequence) && Objects.equals(roots, word.roots) && Objects.equals(userWords, word.userWords);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, english, wordSequence, roots, difficulty, flagged, userWords);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, name, english, wordSequence, roots, difficulty, flagged, userWords);
+//    }
 }

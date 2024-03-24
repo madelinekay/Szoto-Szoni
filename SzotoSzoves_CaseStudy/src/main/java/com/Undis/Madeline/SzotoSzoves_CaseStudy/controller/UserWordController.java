@@ -63,8 +63,7 @@ public class UserWordController {
     public String flagWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
         String email = userDetails.getUsername();
         int user_id = userService.findUserByEmail(email).getId();
-        userWordService.flagWord(id, user_id);
-
+        userWordService.flagWord(user_id, id);
         return "redirect:/collections";
     }
 }

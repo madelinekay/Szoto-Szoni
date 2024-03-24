@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+//@ToString
 public class Root {
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -37,14 +37,14 @@ public class Root {
         this.partOfSpeech = partOfSpeech;
     }
 
-    @Override
-    public String toString() {
-        return "Root{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", english='" + english + '\'' +
-                ", words=" + words +
-                ", partOfSpeech='" + partOfSpeech + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Root{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", english='" + english + '\'' +
+//                ", words=" + words +
+//                ", partOfSpeech='" + partOfSpeech + '\'' +
+//                '}';
+//    }
 }
