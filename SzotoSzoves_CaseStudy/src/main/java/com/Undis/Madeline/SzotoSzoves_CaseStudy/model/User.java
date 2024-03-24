@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -20,33 +21,30 @@ public class User {
     private int id;
     private String email;
     private String password;
-//    private Date signUpDate;
     private int level;
     private String language;
-//bidirectional relationship where user changes do not cascade to word
-    @ManyToMany
-//    @JoinTable not actually necessary
-    private Set<Word> words;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserWord> userWords;
 
-    public User(int id, String email, String password, int level, String language, Set<Word> words) {
+    public User(int id, String email, String password, int level, String language, Set<UserWord> userWords) {
         this.id = id;
         this.email = email;
         this.password = password;
-//        this.signUpDate = signUpDate;
         this.level = level;
         this.language = language;
-        this.words = words;
+        this.userWords = userWords;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && level == user.level && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(language, user.language) && Objects.equals(userWords, user.userWords);
     }
 
 //    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", email='" + email + '\'' +
-//                ", password='" + password + '\'' +
-//                ", level=" + level +
-//                ", language='" + language + '\'' +
-//                ", words=" + words +
-//                '}';
+//    public int hashCode() {
+//        return Objects.hash(id, email, password, level, language, userWords);
 //    }
 }

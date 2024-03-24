@@ -8,14 +8,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-@NamedNativeQuery(name="Word.getFlaggedWords", query = SQLQueries.GET_FLAGGED_WORDS, resultClass = Word.class)
+//@ToString
 public class Word {
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -23,43 +23,34 @@ public class Word {
     private String name;
     private String english;
     private String wordSequence;
-//    deletion of word should not delete root but should delete the instance in the join table. updates to word should merge
-//    word: abc - deleting abc
-//    roots:  a b c
-//    root a: abc, ab -> abc should be deleted but ab should remain
-    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable
+    @ManyToMany
     private Set<Root> roots;
     private int difficulty;
     private boolean flagged;
-//    private Date lastSeen;
+    @OneToMany
+    private Set<UserWord> userWords;
 
-//    do I need this? not actually used
-//    changes to word should affect user words - delete should matter, and update should matter
-    @ManyToMany(mappedBy = "words")
-    private Set<User> users;
-
-    public Word(int id, String name, String english, Set<Root> roots, int difficulty, Boolean flagged, Set<User> users, String wordSequence) {
+    public Word(int id, String name, String english, String wordSequence, Set<Root> roots, int difficulty, boolean flagged, Set<UserWord> userWords) {
         this.id = id;
         this.name = name;
         this.english = english;
+        this.wordSequence = wordSequence;
         this.roots = roots;
         this.difficulty = difficulty;
-//        this.lastSeen = lastSeen;
-        this.users = users;
-        this.wordSequence = wordSequence;
+        this.flagged = flagged;
+        this.userWords = userWords;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Word word = (Word) o;
+        return id == word.id && difficulty == word.difficulty && flagged == word.flagged && Objects.equals(name, word.name) && Objects.equals(english, word.english) && Objects.equals(wordSequence, word.wordSequence) && Objects.equals(roots, word.roots) && Objects.equals(userWords, word.userWords);
     }
 
 //    @Override
-//    public String toString() {
-//        return "Word{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", english='" + english + '\'' +
-//                ", roots=" + roots +
-//                ", difficulty=" + difficulty +
-//                ", flagged=" + flagged +
-//                ", users=" + users +
-//                '}';
+//    public int hashCode() {
+//        return Objects.hash(id, name, english, wordSequence, roots, difficulty, flagged, userWords);
 //    }
 }

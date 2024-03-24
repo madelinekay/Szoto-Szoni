@@ -30,12 +30,6 @@ public class UserAuthController {
     public String login() {
         return "login";
     }
-    // Login form with error
-//    @RequestMapping("/login-error.html")
-//    public String loginError(Model model) {
-//        model.addAttribute("loginError", true);
-//        return "login.html";
-//    }
 
     @GetMapping("/signup")
     public String showRegistrationForm(Model model) {
@@ -57,7 +51,6 @@ public class UserAuthController {
             RedirectAttributes redirAttrs
     ) {
         User existingUser = userService.findUserByEmail(userDTO.getEmail());
-//        TODO verify if this message will be injected into thymeleaf
         if (existingUser != null) {
             result.rejectValue("email", null, "There is already an account registered with the same email");
         }
