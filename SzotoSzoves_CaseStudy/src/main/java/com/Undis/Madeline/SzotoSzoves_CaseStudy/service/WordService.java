@@ -27,6 +27,7 @@ public class WordService {
 
     public Word getWord() {
         Word word = wordRepository.findRandomWord();
+        System.out.println("word " + word);
         return word;
     }
     public List<Word> getWords() {

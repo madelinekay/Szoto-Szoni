@@ -13,38 +13,34 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-//@ToString
 public class Root {
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
     int id;
     private String name;
     private String english;
-//    if word is deleted or updated, word in set should be deleted or updated
     @ManyToMany(mappedBy = "roots")
     private Set<Word> words;
-//    private int difficulty;
-//    private Date lastSeen;
     private String partOfSpeech;
+    private String origin;
 
-    public Root(int id, String name, String english, Set<Word> words, String partOfSpeech) {
+    public Root(int id, String name, String english, Set<Word> words, String partOfSpeech, String origin) {
         this.id = id;
         this.name = name;
         this.english = english;
         this.words = words;
-//        this.difficulty = difficulty;
-//        this.lastSeen = lastSeen;
         this.partOfSpeech = partOfSpeech;
+        this.origin = origin;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Root{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", english='" + english + '\'' +
-//                ", words=" + words +
-//                ", partOfSpeech='" + partOfSpeech + '\'' +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Root{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", english='" + english + '\'' +
+                ", partOfSpeech='" + partOfSpeech + '\'' +
+                ", origin='" + origin + '\'' +
+                '}';
+    }
 }

@@ -11,131 +11,60 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-    html, body {
-        height: 100%;
+    .btn svg {
+        width: 40px;
+        height: 40px;
+        color: #E9ECEF;
+        font-weight: .5;
     }
-
-    nav {
-        height: 4rem;
-        border-bottom: 1px solid #E9ECEF;
-    }
-
-    .nav {
-        padding: 1.5rem;
-        border-right: 1px solid #E9ECEF;
-        width: 20rem;
-    }
-
-    .montserrat {
-        font-family: "Montserrat", sans-serif;
-        font-optical-sizing: auto;
-        font-style: normal;
-    }
-
-    .adjective {
-        text-decoration: underline;
-        text-decoration-color: blue;
-    }
-    .noun {
-        text-decoration: underline;
-        text-decoration-color: red;
-    }
-    .verb {
-        text-decoration: underline;
-        text-decoration-color: green;
-    }
-    .suffix {
-        text-decoration: underline;
-        text-decoration-color: purple;
-    }
-    .roots-container .dot {
-        display: none;
-    }
-    .roots-container span:not(:last-child) .dot {
-        display: inline;
-    }
-    #flashcard .front {
-        display: flex;
-    }
-
-    #flashcard .back {
-        display: none;
-    }
-
-    #flashcard.flipped .front {
-        display: none;
-    }
-
-    #flashcard.flipped .back {
-        display: flex;
-    }
-    .card-body {
-        display: flex;
-        justify-content: center; align-items: center;
-        height: 100%;
-    }
-    .content {
-        padding:.75rem; display: flex; flex-direction: column; justify-content: center; align-items: center;
-    }
-    .card {
-        transition: transform 0.6s;
-        transform-style: preserve-3d;
-    }
-
-    .card.flipped {
-        transform: rotateY(180deg);
-    }
-    .back {
-        transform: rotateY(180deg);
-    }
-</style>
 </style>
 <body>
-
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="d-flex h-100">
     <div th:replace="fragments/sidebar :: sidebar"></div>
-    <form method="get" th:action="@{/flashcard}" class="d-flex flex-column w-100 h-100 align-items-center"
-          style="padding: 2.3rem">
-        <div id="flashcard" class="card" style="height: 23rem; width: 23rem" onclick="flipCard()">
-            <div class="card-body" >
-            <div class="content front" >
-                <!--                <img id="card_image"    class="object-fit-contain" style="display: block; width: 12rem; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;" src="resources/computer.webp" alt="computer"/>-->
-                <div class="roots-container" >
-                        <span th:each="root: ${roots}"><span style="font-size: 1.5rem; color: darkslategray" th:text="${root.name}" th:class="${root.partOfSpeech}"></span><span class="dot">•</span></span>
-                </div>
-            </div>
-            <div class="content back">
-                <!--                <img id="card_image"    class="object-fit-contain" style="display: block; width: 12rem; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;" src="resources/computer.webp" alt="computer"/>-->
-                <div style="font-size: 1.5rem; color: darkslategray" th:text="${word.english}"></div>
-                <div class="roots-container" style="padding:.75rem; display: flex; justify-content: center; align-items: center">
-                    <span th:each="root: ${roots}"><span style="font-size: 1.25rem; color: darkslategray" th:text="${root.english}" th:class="${root.partOfSpeech}"></span><span class="dot">•</span></span>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="btn-group p-3" role="group" aria-label="Basic outlined example">
-            <button onClick="getPreviousCard()" type="button" class="btn "><i class="bi bi-arrow-left text-secondary">
+    <form method="get" th:action="@{/flashcard}" class="w-100 p-5">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <button class="btn" style="color:green">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                     class="bi bi-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                          d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-                </svg>
-            </i></button>
-            <button class="btn ">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                     class="bi bi-lightbulb-fill text-secondary" viewBox="0 0 16 16">
-                    <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5"/>
+                     class="bi bi-caret-left" viewBox="0 0 16 16">
+                    <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
                 </svg>
             </button>
-            <button type="submit" class="btn">
+            <div id="flashcard" class="card" style="height: 23rem; width: 23rem" onclick="flipCard()">
+                <div class="content front card-body">
+                    <!--                <img id="card_image"    class="object-fit-contain" style="display: block; width: 12rem; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;" src="resources/computer.webp" alt="computer"/>-->
+                    <div class="roots-container">
+                    <span th:each="root: ${roots}"><span style="font-size: 1.5rem; color: darkslategray"
+                                                         th:text="${root.name}"
+                                                         th:class="${root.partOfSpeech}"></span><span
+                            class="dot">•</span></span>
+                    </div>
+                </div>
+                <div class="content back card-body">
+                    <div style="display: flex; justify-content: space-between; align-items: center">
+                        <div class="card-title mb-4" style="font-size: 1.5rem; color: darkslategray"
+                             th:text="${word.english}"></div>
+                    </div>
+                    <div th:each="root: ${roots}">
+                        <div class="mb-3">
+                        <span style="font-size: 1.25rem; color: darkslategray" th:text="${root.name}"
+                              th:class="${root.partOfSpeech}"></span>
+                            <div style="font-size: 1rem; color: darkslategray; opacity:.7; display: flex; justify-content: space-between">
+                                <span th:text="${root.english}"></span>
+                                <div th:text="${root.origin} != null ? ${root.partOfSpeech} + ', ' + ${root.origin} : ${root.partOfSpeech}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn" type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                     class="bi bi-arrow-right text-secondary" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                          d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                     class="bi bi-caret-right" viewBox="0 0 16 16">
+                    <path d="M6 12.796V3.204L11.481 8zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753"/>
                 </svg>
             </button>
         </div>
+        </Box>
     </form>
 </div>
 <script th:src="@{/js/flashcard.js}"></script>

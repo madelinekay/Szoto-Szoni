@@ -9,6 +9,6 @@ import java.util.List;
 
 //user will need to be able to update or word
 public interface WordRepository extends JpaRepository<Word, Integer>{
-    @Query(value = "SELECT * FROM word ORDER BY RAND() LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM word where flagged = false ORDER BY RAND() LIMIT 1", nativeQuery = true)
     Word findRandomWord();
 }
