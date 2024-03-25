@@ -2,6 +2,7 @@ package com.Undis.Madeline.SzotoSzoves_CaseStudy.controller;
 
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.UserWordDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.WordDTO;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.exceptions.NoWordsFoundException;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Root;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
@@ -35,37 +36,33 @@ public class WordController {
     @GetMapping("/flashcard")
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) {
 //       todo add logic so that words dont repeat
-        Word word = wordService.getWord();
-//        // TODO: handle edgecase
-        if (word == null) {
-            System.out.println("no word");
+        try {
+            Word word = wordService.getWord();
+            if (word == null) {
+                throw new NoWordsFoundException("Database is empty");
+            }
+            List<Root> roots = rootService.getRootsInOrder(word.getId());
+
+            String email = userDetails.getUsername();
+            User user = userService.findUserByEmail(email);
+
+            UserWordDTO userWordDTO = new UserWordDTO();
+            userWordDTO.setName(word.getName());
+            userWordDTO.setEnglish(word.getEnglish());
+            userWordDTO.setUser(user);
+            userWordDTO.setWord(word);
+            userWordService.convertToUserWordEntity(userWordDTO, user);
+            userService.save(user);
+
+            model.addAttribute("user", user);
+            model.addAttribute("roots", roots);
+            model.addAttribute("word", word);
+            model.addAttribute("isFlipped", false);
+        } catch (NoWordsFoundException e) {
+            System.out.println("An error has occurred. Database is empty");
+        } finally {
+
+            return "/flashcard";
         }
-//        String[] rootStrings = word.getWordSequence().split(" ");
-//        System.out.println("word controller " + rootStrings);
-//        List<Root> roots = new ArrayList<>();
-//        for (String rootString : rootStrings) {
-//            Root root = rootService.getRootByName(rootString);
-//            System.out.println("word controller " + root);
-//            roots.add(root);
-//        }
-        List<Root> roots = rootService.getRootsInOrder(word.getId());
-
-        String email = userDetails.getUsername();
-        User user = userService.findUserByEmail(email);
-
-        UserWordDTO userWordDTO = new UserWordDTO();
-        userWordDTO.setName(word.getName());
-        userWordDTO.setEnglish(word.getEnglish());
-        userWordDTO.setUser(user);
-        userWordDTO.setWord(word);
-        userWordService.convertToUserWordEntity(userWordDTO, user);
-        userService.save(user);
-        //    adding word to model and returning flashcard view
-        model.addAttribute("user", user);
-        model.addAttribute("roots", roots);
-        model.addAttribute("word", word);
-        model.addAttribute("isFlipped", false);
-        return "/flashcard";
     }
-
 }

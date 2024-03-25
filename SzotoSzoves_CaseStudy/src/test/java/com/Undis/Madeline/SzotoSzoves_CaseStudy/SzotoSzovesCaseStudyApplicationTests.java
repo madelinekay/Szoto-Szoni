@@ -38,29 +38,25 @@ class SzotoSzovesCaseStudyApplicationTests {
 		assertNotNull(wordService.getWord(), "word should not be null");
 	}
 
-//	@Test
-//	 void wordsAreFlagged() {
-////		todo populate data
-//		List<UserWord> words = UserWordService.getFlaggedWords(1);
-//		words.forEach(word -> assertTrue(word.isFlagged(), "word is flagged"));
-//	}
-
 	@ParameterizedTest
 	@CsvSource({
 			"madeline@madeline.com, 2"
 	})
+	@Test
 	void userIsFound (ArgumentsAccessor arguments) {
 		User user = userService.findUserByEmail(arguments.getString(0));
 		assertEquals(user.getId(), Integer.parseInt(arguments.getString(1)));
 	}
 //	test driven development
+	@Test
 	void rootsAreRenderedInOrder() {
-		List<String> sequence = new ArrayList<>(Arrays.asList("szó", "kapcsol", "at"));
+		List<String> sequence = new ArrayList<>(Arrays.asList("szó", "kapcsol", "a", "t"));
 		Word word = wordService.getWord();
 //		call root service getting roots and sorting in order
-
-
-
+		List<Root> roots = rootService.getRootsInOrder(word.getId());
+		assertEquals(sequence.size(), roots.size());
+		for (int i=0; i<roots.size(); i++) {
+			assertTrue(roots.get(i).equals(sequence.get(i)));
+		}
 	}
-
 }
