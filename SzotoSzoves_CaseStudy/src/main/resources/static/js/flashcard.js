@@ -2,20 +2,7 @@
 let flipCard = () => {
     let flashcard = document.getElementById("flashcard");
     flashcard.classList.toggle('flipped');
-
-    // let isFlipped = flashcard.getAttribute('data-isFlipped') == 'true';
-    // let result = (!isFlipped).toString();
-    // console.log("isFlipped: ", isFlipped);
-    // console.log("result: ", result);
-    // flashcard.setAttribute('data-isFlipped', result);
-    //
-    // let flashcardContent = document.getElementById('flashcard-text')
-    // let translation = flashcard.getAttribute('data-back');
-    // let word = flashcard.getAttribute('data-front');
-    // flashcardContent.textContent = isFlipped ? translation : word;
 }
-
-
 
 // todo save words in the session
 let getPreviousCard = () => {
@@ -40,13 +27,5 @@ let validateForm = () => {
         password.className += " is-invalid"
         alert("Password must be at least 10 characters and include 1 letter, 1 number and 1 special character.")
         return false
-    }
-}
-
-let deleteWord = () => {
-    console.log("here delete")
-    const wordId = this.getAttribute('wordId');
-    fetch(`/words/delete/${wordId}`), {
-        method: 'DELETE',
     }
 }

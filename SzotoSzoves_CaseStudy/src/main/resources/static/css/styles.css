@@ -19,3 +19,86 @@ nav {
 .card:hover {
     cursor: pointer;
 }
+html, body {
+    height: 100%;
+}
+
+nav {
+    height: 4rem;
+    border-bottom: 1px solid #E9ECEF;
+}
+
+.nav {
+    padding: 1.5rem;
+    border-right: 1px solid #E9ECEF;
+    width: 20rem;
+}
+
+.montserrat {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.adjective {
+    text-decoration: underline;
+    text-decoration-color: blue;
+}
+.noun {
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+.verb {
+    text-decoration: underline;
+    text-decoration-color: green;
+}
+.suffix {
+    text-decoration: underline;
+    text-decoration-color: purple;
+}
+.roots-container .dot {
+    display: none;
+}
+.roots-container span:not(:last-child) .dot {
+    display: inline;
+}
+#flashcard .front {
+    display: flex;
+}
+
+#flashcard .back {
+    display: none;
+}
+
+#flashcard.flipped .front {
+    display: none;
+}
+
+#flashcard.flipped .back {
+    display: flex;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center; align-items: center;*/
+    height: 100%;
+}
+/*.content {*/
+/*    padding:.75rem;*/
+/*    display: flex; */
+/*    flex-direction: column; */
+/*    justify-content: center; */
+/*    align-items: center;*/
+/*}*/
+.card {
+    padding: 1.5rem;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+.back {
+    transform: rotateY(180deg);
+}
