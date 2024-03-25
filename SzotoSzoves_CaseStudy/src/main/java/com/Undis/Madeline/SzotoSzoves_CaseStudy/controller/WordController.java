@@ -40,8 +40,8 @@ public class WordController {
         if (word == null) {
             System.out.println("no word");
         }
-        String[] rootStrings = word.getWordSequence().split(" ");
-        System.out.println("word controller " + rootStrings);
+//        String[] rootStrings = word.getWordSequence().split(" ");
+//        System.out.println("word controller " + rootStrings);
 //        List<Root> roots = new ArrayList<>();
 //        for (String rootString : rootStrings) {
 //            Root root = rootService.getRootByName(rootString);
@@ -63,7 +63,6 @@ public class WordController {
         //    adding word to model and returning flashcard view
         model.addAttribute("user", user);
         model.addAttribute("roots", roots);
-        model.addAttribute("roots-front", rootStrings);
         model.addAttribute("word", word);
         model.addAttribute("isFlipped", false);
         return "/flashcard";
