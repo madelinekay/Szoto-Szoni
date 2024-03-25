@@ -47,12 +47,17 @@
                     </div>
                     <div th:each="root: ${roots}">
                         <div class="mb-3">
-                        <span style="font-size: 1.25rem; color: darkslategray" th:text="${root.name}"
+                            <span style="font-size: 1.25rem; color: darkslategray" th:text="${root.name}"
                               th:class="${root.partOfSpeech}"></span>
                             <div style="font-size: 1rem; color: darkslategray; opacity:.7; display: flex; justify-content: space-between">
                                 <span th:text="${root.english}"></span>
                                 <div th:text="${root.origin} != null ? ${root.partOfSpeech} + ', ' + ${root.origin} : ${root.partOfSpeech}"></div>
                             </div>
+<!--                            <div>-->
+<!--                                <span style="font-size: 1.25rem; color: darkslategray" th:text="${root.name}" th:class="${root.partOfSpeech}"></span>-->
+<!--                                <span style="font-size: 1rem; color: darkslategray; opacity:.7;" th:text="${root.english}"></span>-->
+<!--                            </div>-->
+<!--                            <span style="font-size: 1rem; color: darkslategray; opacity:.7;" th:text="${root.origin}"></span>-->
                         </div>
                     </div>
                 </div>
