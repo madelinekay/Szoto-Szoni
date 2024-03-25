@@ -42,12 +42,13 @@ public class WordController {
         }
         String[] rootStrings = word.getWordSequence().split(" ");
         System.out.println("word controller " + rootStrings);
-        List<Root> roots = new ArrayList<>();
-        for (String rootString : rootStrings) {
-            Root root = rootService.getRootByName(rootString);
-            System.out.println("word controller " + root);
-            roots.add(root);
-        }
+//        List<Root> roots = new ArrayList<>();
+//        for (String rootString : rootStrings) {
+//            Root root = rootService.getRootByName(rootString);
+//            System.out.println("word controller " + root);
+//            roots.add(root);
+//        }
+        List<Root> roots = rootService.getRootsInOrder(word.getId());
 
         String email = userDetails.getUsername();
         User user = userService.findUserByEmail(email);
@@ -62,6 +63,7 @@ public class WordController {
         //    adding word to model and returning flashcard view
         model.addAttribute("user", user);
         model.addAttribute("roots", roots);
+        model.addAttribute("roots-front", rootStrings);
         model.addAttribute("word", word);
         model.addAttribute("isFlipped", false);
         return "/flashcard";
