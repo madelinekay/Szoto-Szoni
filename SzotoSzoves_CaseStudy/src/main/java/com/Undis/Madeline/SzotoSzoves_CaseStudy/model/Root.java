@@ -19,7 +19,7 @@ public class Root {
     int id;
     private String name;
     private String english;
-    @ManyToMany(mappedBy = "roots")
+    @ManyToMany(mappedBy = "roots", fetch = FetchType.EAGER)
     private Set<Word> words;
     private String partOfSpeech;
     private String origin;
