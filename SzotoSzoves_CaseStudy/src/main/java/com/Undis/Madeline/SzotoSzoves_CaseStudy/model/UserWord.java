@@ -20,9 +20,9 @@ public class UserWord {
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
     int id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Word word;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     private String name;
     private String english;

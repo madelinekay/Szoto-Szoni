@@ -23,12 +23,13 @@ public class Word {
     private String name;
     private String english;
     private String wordSequence;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Root> roots;
     private int difficulty;
     private boolean flagged;
     private String partOfSpeech;
-    @OneToMany
+    private String image;
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<UserWord> userWords;
 
     public Word(int id, String name, String english, String wordSequence, Set<Root> roots, int difficulty, boolean flagged, String partOfSpeech, Set<UserWord> userWords) {

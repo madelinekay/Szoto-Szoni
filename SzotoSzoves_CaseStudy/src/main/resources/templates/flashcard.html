@@ -30,34 +30,45 @@
                     <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753"/>
                 </svg>
             </button>
-            <div id="flashcard" class="card" style="height: 23rem; width: 23rem" onclick="flipCard()">
-                <div class="content front card-body">
-                    <!--                <img id="card_image"    class="object-fit-contain" style="display: block; width: 12rem; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;" src="resources/computer.webp" alt="computer"/>-->
+            <div id="flashcard" class="card" style="height: 25rem; width: 25rem" onclick="flipCard()">
+                <div class="content front card-body" >
+                    <div style="display: flex; flex-direction: column; align-items: center">
+                    <img id="card_image" class="object-fit-contain"
+                         style="display: block; width: 12rem; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;"
+                         th:src="@{'images/' + ${word.english} + '.webp'}" alt="computer"/>
                     <div class="roots-container">
-                    <span th:each="root: ${roots}"><span style="font-size: 1.5rem; color: darkslategray"
-                                                         th:text="${root.name}"
-                                                         th:class="${root.partOfSpeech}"></span><span
-                            class="dot">•</span></span>
+                        <!--                    <span >-->
+
+                        <!--                        <span class="dot">•</span>-->
+
+
+                        <span th:each="root: ${roots}" style="font-family: 'Times New Roman', Times, serif; font-size: 2rem; color: darkslategray"
+                              th:text="${root.name}"
+                              th:class="${root.partOfSpeech}"></span>
+                    </div>
                     </div>
                 </div>
-                <div class="content back card-body">
-                    <div style="display: flex; justify-content: space-between; align-items: center">
-                        <div class="card-title mb-4" style="font-size: 1.5rem; color: darkslategray"
+
+                <div class=" content back card-body" style="font-family: 'Times New Roman', Times, serif;">
+                    <div style="display: flex; align-items: center; justify-content: space-between" >
+                        <div class="card-title mb-4" style="font-size: 2rem; color: darkslategray"
                              th:text="${word.english}"></div>
                     </div>
                     <div th:each="root: ${roots}">
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <span style="font-size: 1.25rem; color: darkslategray" th:text="${root.name}"
-                              th:class="${root.partOfSpeech}"></span>
+                                  th:class="${root.partOfSpeech}"></span>
                             <div style="font-size: 1rem; color: darkslategray; opacity:.7; display: flex; justify-content: space-between">
-                                <span th:text="${root.english}"></span>
-                                <div th:text="${root.origin} != null ? ${root.partOfSpeech} + ', ' + ${root.origin} : ${root.partOfSpeech}"></div>
+                                <span th:text="${root.english} + '; ' + ${root.origin}"></span>
+                                <!--                                <div th:text="${root.origin} != null ? ${root.partOfSpeech} + ', ' + ${root.origin} : ${root.partOfSpeech}"></div>-->
+<!--                                <div th:text="${root.origin}"></div>-->
+
                             </div>
-<!--                            <div>-->
-<!--                                <span style="font-size: 1.25rem; color: darkslategray" th:text="${root.name}" th:class="${root.partOfSpeech}"></span>-->
-<!--                                <span style="font-size: 1rem; color: darkslategray; opacity:.7;" th:text="${root.english}"></span>-->
-<!--                            </div>-->
-<!--                            <span style="font-size: 1rem; color: darkslategray; opacity:.7;" th:text="${root.origin}"></span>-->
+                            <!--                            <div>-->
+                            <!--                               <span style="font-size: 1.25rem; color: darkslategray" th:text="${root.name}" th:class="${root.partOfSpeech}"></span>-->
+                            <!--                                <span style="font-size: 1rem; color: darkslategray; opacity:.7;" th:text="${root.english}"></span>-->
+                            <!--                            </div>-->
+                            <!--                            <span style="font-size: 1rem; color: darkslategray; opacity:.7;" th:text="${root.origin}"></span>-->
                         </div>
                     </div>
                 </div>

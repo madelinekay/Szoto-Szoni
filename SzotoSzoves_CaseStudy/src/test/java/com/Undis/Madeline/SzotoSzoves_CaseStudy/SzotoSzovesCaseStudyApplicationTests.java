@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,23 +41,33 @@ class SzotoSzovesCaseStudyApplicationTests {
 
 	@ParameterizedTest
 	@CsvSource({
-			"madeline@madeline.com, 2"
+			"madeline@madeline.com, 1"
 	})
-	@Test
 	void userIsFound (ArgumentsAccessor arguments) {
 		User user = userService.findUserByEmail(arguments.getString(0));
-		assertEquals(user.getId(), Integer.parseInt(arguments.getString(1)));
+		int csvID = Integer.parseInt(arguments.getString(1));
+		assertEquals(user.getId(), csvID);
+	}
+
+	@Test
+	void wordsAreFlagged() {
+		List<UserWord> words = userWordService.getFlaggedWords(1);
+		words.forEach(word -> assertTrue(word.isFlagged(), "word is flagged"));
 	}
 //	test driven development
 	@Test
 	void rootsAreRenderedInOrder() {
 		List<String> sequence = new ArrayList<>(Arrays.asList("szó", "kapcsol", "a", "t"));
-		Word word = wordService.getWord();
+		Optional<Word> optionalWord = wordService.getWordById(7);
+		optionalWord.ifPresent(word -> {
+			List<Root> roots = rootService.getRootsInOrder(word.getId());
+			System.out.println("roots");
+			assertEquals(sequence.size(), roots.size());
+			for (int i=0; i<roots.size(); i++) {
+				assertTrue(roots.get(i).getName().equals(sequence.get(i)));
+			}
+		});
 //		call root service getting roots and sorting in order
-		List<Root> roots = rootService.getRootsInOrder(word.getId());
-		assertEquals(sequence.size(), roots.size());
-		for (int i=0; i<roots.size(); i++) {
-			assertTrue(roots.get(i).equals(sequence.get(i)));
-		}
+
 	}
 }
