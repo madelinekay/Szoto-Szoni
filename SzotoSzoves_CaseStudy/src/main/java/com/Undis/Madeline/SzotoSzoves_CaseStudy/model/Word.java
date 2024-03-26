@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-//@ToString
+@ToString
 public class Word {
     @Id
     @GeneratedValue( strategy= GenerationType.IDENTITY )
@@ -23,14 +23,16 @@ public class Word {
     private String name;
     private String english;
     private String wordSequence;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Root> roots;
     private int difficulty;
     private boolean flagged;
-    @OneToMany
+    private String partOfSpeech;
+    private String image;
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<UserWord> userWords;
 
-    public Word(int id, String name, String english, String wordSequence, Set<Root> roots, int difficulty, boolean flagged, Set<UserWord> userWords) {
+    public Word(int id, String name, String english, String wordSequence, Set<Root> roots, int difficulty, boolean flagged, String partOfSpeech, Set<UserWord> userWords) {
         this.id = id;
         this.name = name;
         this.english = english;
@@ -38,6 +40,7 @@ public class Word {
         this.roots = roots;
         this.difficulty = difficulty;
         this.flagged = flagged;
+        this.partOfSpeech = partOfSpeech;
         this.userWords = userWords;
     }
 

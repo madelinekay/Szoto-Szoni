@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,7 @@ public class WordService {
 
     public Word getWord() {
         Word word = wordRepository.findRandomWord();
+        System.out.println("word " + word);
         return word;
     }
     public List<Word> getWords() {

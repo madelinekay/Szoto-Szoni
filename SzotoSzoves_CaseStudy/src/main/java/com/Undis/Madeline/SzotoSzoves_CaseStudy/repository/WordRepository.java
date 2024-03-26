@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import javax.crypto.spec.PSource;
 import java.util.List;
+import java.util.Optional;
 
 //user will need to be able to update or word
 public interface WordRepository extends JpaRepository<Word, Integer>{
     @Query(value = "SELECT * FROM word ORDER BY RAND() LIMIT 1", nativeQuery = true)
     Word findRandomWord();
+
 }
