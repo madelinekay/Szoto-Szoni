@@ -1,14 +1,23 @@
 # Szótő Szőni
 
-- Prioritizes root relationships to teach agglutinative languages in a more intuitive way
-- Leverages AI to create content for difficult agglutinative languages like Hungarian, which lack resources for learning
+### Mission
 
-## Demo
+Szótő Szőni leverages AI to create content for difficult agglunative (suffix-based) languages lacking in learning resources. The app currently supports Turkish and Hungarian, but advances in AI create potential to support more endangered agglutinative languages like Circassian and Uyghur.
 
+### Creative UX makes words easier to memorize
 
-https://github.com/madelinekay/roots_capstone/assets/61764962/5db2c65f-63cb-4891-839c-ca9df5265a6a
+AI breaks down words into color-highlighted roots to create associations between words, their part-of-speech, and root formations.
 
+<img src="./static/hajoallomas.png">
 
-Roots and words are connected using a custom join table storing the position of the root. Words are rendered as a sequence of roots, with tooltips and highlights corresponding to each root's part-of-speech.
+### Comparative approach to language learning
 
-<img  alt="Screen Shot 2022-02-25 at 1 25 04 PM" src="static/entity-diagram.png">
+Flashcards give learners a complete root breakdown with translation and part-of-speech for easy comparison with previously seen words. Origin is also provided to allow learners to relate roots to other agglutinative or Central Asian linguistic groups.
+
+<img src="./static/dock.png">
+
+### Data structure
+
+A custom join table connects words and roots by storing the position of the root and word dependent accents and fusions. Words are rendered as a sequence of roots, with tooltips and highlights corresponding to each root's part-of-speech.
+
+<img  alt="entity table" src="./static/join.png">
