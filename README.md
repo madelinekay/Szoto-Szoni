@@ -20,4 +20,4 @@ Flashcards give learners a complete root breakdown with translation and part-of-
 
 A custom join table connects words and roots by storing the position of the root and word dependent accents and fusions. Words are rendered as a sequence of roots, with tooltips and highlights corresponding to each root's part-of-speech.
 
-<img  alt="entity table" src="./static/entities.png">
+<img  alt="entity table" src="./static/entity_diagram.png">
