@@ -2,7 +2,7 @@
 
 ### Mission
 
-Szótő Szőni leverages AI to create content for difficult agglunative (suffix-based) languages lacking in learning resources. The app currently supports Turkish and Hungarian, but advances in AI create potential to support more endangered agglutinative languages like Circassian and Uyghur.
+Szótő Szőni leverages AI to create content for difficult agglunative (suffix-based) languages lacking resources for learning. The app currently supports Turkish and Hungarian, but advances in AI create potential to support more endangered agglutinative languages like Circassian and Uyghur.
 
 ### Creative UX makes words easier to memorize
 
