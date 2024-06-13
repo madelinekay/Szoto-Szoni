@@ -1,5 +1,9 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy;
 
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.data.RootWordId;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.RootC;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.RootWord;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.WordC;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.PythonAPIClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,5 +17,4 @@ public class SzotoSzovesCaseStudyApplication {
 		SpringApplication.run(SzotoSzovesCaseStudyApplication.class, args);
 		PythonAPIClient.getWord();
 	}
-
 }

@@ -37,7 +37,5 @@ public class WordService {
     public Optional<Word> getWordById(int id) { return wordRepository.findById(id);}
 
     public void save(Word word) { wordRepository.save(word); }
-
-
 }
 

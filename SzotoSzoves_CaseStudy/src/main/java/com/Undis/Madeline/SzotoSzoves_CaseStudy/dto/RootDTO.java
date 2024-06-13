@@ -12,7 +12,6 @@ public class RootDTO {
     private String name;
     @NotEmpty
     private String english;
-    @NotEmpty
     private boolean flagged;
 
     public String getName() {

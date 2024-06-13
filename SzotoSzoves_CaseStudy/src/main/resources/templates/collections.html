@@ -57,6 +57,7 @@
                             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
                         </svg>
                     </button>
+<!--                    todo: fix these with html forms as links only permit get requests -->
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" th:href="@{'/delete/' + ${word.id}}" th:data-word-id="${word.id}">Delete from user collection</a></li>
                         <li><a class="dropdown-item" th:href="@{'/flag/' + ${word.id}}" th:data-word-id="${word.id}">Flag bad data</a></li>
