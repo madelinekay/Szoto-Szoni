@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserWordRepository extends JpaRepository<UserWord, Integer> {
     List<UserWord> findAllByUser(User user);
@@ -17,6 +18,6 @@ public interface UserWordRepository extends JpaRepository<UserWord, Integer> {
     void flagWord(@Param("userId") int userId, @Param("wordId") int wordId);
 
     @Modifying
-    void deleteByIdAndUser(int id, User user);
-
+    @Query("DELETE FROM UserWord u WHERE u.id = :wordId AND u.user = :user")
+    void deleteByIdAndUser(@Param("wordId") int wordId, @Param("user") User user);
 }

@@ -58,8 +58,20 @@
                         </svg>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{'/delete/' + ${word.id}}" th:data-word-id="${word.id}">Delete from user collection</a></li>
-                        <li><a class="dropdown-item" th:href="@{'/flag/' + ${word.id}}" th:data-word-id="${word.id}">Flag bad data</a></li>
+                        <li>
+                            <form th:action="@{'/delete/' + ${word.id}}" method="post" class="d-inline">
+                                <input type="hidden" th:value="${word.id}" name="wordId">
+                                <button type="submit" class="dropdown-item">Delete from user collection</button>
+                            </form>
+                        </li>
+                        <li>
+                            <form th:action="@{'/flag/' + ${word.id}}" method="post" class="d-inline">
+                                <input type="hidden" th:value="${word.id}" name="wordId">
+                                <button type="submit" class="dropdown-item">Flag bad data</button>
+                            </form>
+                        </li>
+<!--                        <li><a class="dropdown-item" th:href="@{'/delete/' + ${word.id}}" th:data-word-id="${word.id}">Delete from user collection</a></li>-->
+<!--                        <li><a class="dropdown-item" th:href="@{'/flag/' + ${word.id}}" th:data-word-id="${word.id}">Flag bad data</a></li>-->
                     </ul>
                 </div></td>
             </tr>

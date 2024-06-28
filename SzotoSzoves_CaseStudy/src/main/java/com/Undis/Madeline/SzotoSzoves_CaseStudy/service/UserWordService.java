@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -47,12 +48,19 @@ public class UserWordService {
     }
     @Transactional
     public void deleteWord(int wordId, User user) {
+        System.out.println("DELETEWORD");
         try {
             userWordRepository.deleteByIdAndUser(wordId, user);
         } catch (Exception e) {
             logger.atError();
         }
     }
+//doesn't work
+//    @Transactional
+//    public void deleteWord(int wordId, User user) {
+//        Optional<UserWord> userWordOptional = userWordRepository.findByIdAndUser(wordId, user);
+//        userWordOptional.ifPresent(userWordRepository::delete);
+//    }
     @Transactional
     public void convertToUserWordEntity(UserWordDTO userWordDTO, User user) {
         UserWord userWord = new UserWord();

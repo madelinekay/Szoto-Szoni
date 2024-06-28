@@ -11,10 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,15 +48,18 @@ public class UserWordController {
     }
 
     // TODO: @DeleteMapping("/words/{id}")
-    @GetMapping ("/delete/{id}")
-    public String deleteWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
+    @PostMapping("/delete/{wordId}")
+    public String deleteWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int wordId) {
+        System.out.println("IN DELETE");
         String email = userDetails.getUsername();
         User user = userService.findUserByEmail(email);
-        userWordService.deleteWord(id, user);
+        userWordService.deleteWord(wordId, user);
+        System.out.println(email + " " + user);
+        System.out.println("id " + wordId);
         return "redirect:/collections";
     }
 
-    @GetMapping  ("/flag/{id}")
+    @PostMapping("/flag/{id}")
     public String flagWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int id) {
         String email = userDetails.getUsername();
         int user_id = userService.findUserByEmail(email).getId();
