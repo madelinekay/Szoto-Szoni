@@ -1,5 +1,6 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Root {
     private String name;
     private String english;
     @ManyToMany(mappedBy = "roots", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("roots")
     private Set<Word> words;
     private String partOfSpeech;
     private String origin;

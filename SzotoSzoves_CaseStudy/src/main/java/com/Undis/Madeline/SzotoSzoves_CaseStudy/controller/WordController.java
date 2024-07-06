@@ -25,17 +25,25 @@ public class WordController {
     private RootService rootService;
     private UserWordService userWordService;
 
+    private PythonAPIClient pythonAPIClient;
+
     @Autowired
-    public WordController(WordService wordService, UserWordService userWordService, UserService userService, RootService rootService) {
+    public WordController(WordService wordService, UserWordService userWordService, UserService userService, RootService rootService, PythonAPIClient pythonAPIClient) {
         this.wordService = wordService;
         this.userService = userService;
         this.rootService = rootService;
         this.userWordService = userWordService;
+        this.pythonAPIClient = pythonAPIClient;
     }
 
     @GetMapping("/flashcard")
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) {
 //       todo add logic so that words dont repeat
+        try {
+            pythonAPIClient.getWord();
+        } catch(Error e) {
+            System.out.println(e);
+        }
         try {
             Word word = wordService.getWord();
             if (word == null) {

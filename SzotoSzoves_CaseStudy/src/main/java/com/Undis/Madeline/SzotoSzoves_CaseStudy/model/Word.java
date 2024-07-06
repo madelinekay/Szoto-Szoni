@@ -1,6 +1,7 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.model;
 
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.constants.SQLQueries;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,12 +25,14 @@ public class Word {
     private String english;
     private String wordSequence;
     @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("words")
     private Set<Root> roots;
     private int difficulty;
     private boolean flagged;
     private String partOfSpeech;
     private String image;
     @OneToMany(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("word")
     private Set<UserWord> userWords;
 
     public Word(int id, String name, String english, String wordSequence, Set<Root> roots, int difficulty, boolean flagged, String partOfSpeech, Set<UserWord> userWords) {
