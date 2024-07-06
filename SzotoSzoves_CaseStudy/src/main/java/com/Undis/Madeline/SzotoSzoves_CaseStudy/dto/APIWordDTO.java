@@ -12,6 +12,9 @@ public class APIWordDTO {
 
     private String english;
     private int difficulty;
+    private List<APIRootDTO> roots;
+
+    public APIWordDTO() {}
 
     public int getDifficulty() {
         return difficulty;
@@ -21,8 +24,6 @@ public class APIWordDTO {
         this.difficulty = difficulty;
     }
 
-    public APIWordDTO() {}
-    private List<APIRootDTO> roots;
 
     public String getName() {
         return name;
