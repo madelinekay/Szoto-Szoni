@@ -15,6 +15,6 @@ public class SzotoSzovesCaseStudyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SzotoSzovesCaseStudyApplication.class, args);
-		PythonAPIClient.getWord();
+//		PythonAPIClient.getWord();
 	}
 }

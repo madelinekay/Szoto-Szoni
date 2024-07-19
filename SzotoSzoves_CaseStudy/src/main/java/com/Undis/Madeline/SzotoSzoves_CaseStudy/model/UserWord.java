@@ -21,7 +21,7 @@ public class UserWord {
     @GeneratedValue( strategy= GenerationType.IDENTITY )
     int id;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Word word;
+    private WordC word;
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     private String name;
