@@ -1,5 +1,6 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.exceptions.WordRepositoryException;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.WordC;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordCRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordRepository;
@@ -18,10 +19,15 @@ public class WordCService {
         this.wordCRepository = wordCRepository;
     }
 
-    public WordC getWord() {
-        WordC word = wordCRepository.findRandomWord();
-        System.out.println("word " + word);
-        return word;
+    public WordC getWord() throws WordRepositoryException {
+        Optional<WordC> wordOptional = wordCRepository.findRandomWord();
+        if(wordOptional.isPresent()) {
+            WordC word = wordOptional.get();
+            System.out.println("Word: " + word);
+            return word;
+        } else {
+            throw new
+                    WordRepositoryException("No word found in the repository."); }
     }
 
     public List<WordC> getWords() {

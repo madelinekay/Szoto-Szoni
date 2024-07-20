@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -27,8 +28,8 @@ public class WordC {
     private boolean flagged;
     private String partOfSpeech;
     private String image;
-//    @OneToMany(fetch = FetchType.EAGER)
-//    private Set<UserWord> userWords;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<UserWord> userWords;
 
 
     public WordC(int id, String name, String english, String wordSequence, Set<RootWord> rootWords, int difficulty, boolean flagged, String partOfSpeech) {
@@ -40,19 +41,22 @@ public class WordC {
         this.difficulty = difficulty;
         this.flagged = flagged;
         this.partOfSpeech = partOfSpeech;
-//        this.userWords = userWords;
+        this.userWords = userWords;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Word word = (Word) o;
-//        return id == word.id && difficulty == word.difficulty && flagged == word.flagged && Objects.equals(name, word.name) && Objects.equals(english, word.english) && Objects.equals(wordSequence, word.wordSequence) && Objects.equals(roots, word.roots) && Objects.equals(userWords, word.userWords);
-//    }
+    @Override
+    public String toString() {
+        return "WordC{" +
+                "id=" + id +
+                ", rootWordsIds=" + rootWords.stream().map(RootWord::getId).collect(Collectors.toList()) +
+                ", name='" + name + '\'' +
+                ", english='" + english + '\'' +
+                ", wordSequence='" + wordSequence + '\'' +
+                ", difficulty=" + difficulty +
+                ", flagged=" + flagged +
+                ", partOfSpeech='" + partOfSpeech + '\'' +
+                ", image='" + image + '\'' +
+                '}';
+    }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name, english, wordSequence, roots, difficulty, flagged, userWords);
-//    }
 }

@@ -1,5 +1,6 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.exceptions.NoRootsFoundException;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.RootC;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.RootCRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,14 @@ public class RootCService {
         return root;
     }
 
-    public List<RootC> getRootsInOrder(int wordId) {
+    public List<RootC> getRootsInOrder(int wordId)
+//            throws NoRootsFoundException
+    {
         List<RootC> roots = rootCRepository.getRootsInOrder(wordId);
-        System.out.println(roots);
+        if (roots.isEmpty()) {
+            System.out.println("root service no roots");
+//            throw new NoRootsFoundException("No roots found in the database for the given word ID: " + wordId);
+        }
         return roots;
     }
 }
