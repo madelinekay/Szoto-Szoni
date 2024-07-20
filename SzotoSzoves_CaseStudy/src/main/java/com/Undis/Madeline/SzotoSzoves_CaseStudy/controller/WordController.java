@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class WordController {
@@ -48,17 +49,18 @@ public class WordController {
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails)
 //            throws NoWordsFoundException
     {
-//        try {
+        try {
             System.out.println("here flashcard");
             WordC wordc = wordCService.getWord();
             System.out.println("wordc" + wordc);
             if (wordc == null) {
                 System.out.println("null");
-//                throw new NoWordsFoundException("Database is empty");
+                throw new NoWordsFoundException("Database is empty");
             }
-            List<RootC> rootCs = rootCService.getRootsInOrder(wordc.getId());
-
+            List<RootC> rootCs = wordc.getRootWords().stream().sorted(Comparator.comparing(RootWord::getPosition)).map(RootWord::getRootC).collect(Collectors.toList());
+//            List<RootC> rootCs = rootCService.getRootsInOrder(wordc.getId());
             System.out.println(rootCs);
+
             String email = userDetails.getUsername();
             User user = userService.findUserByEmail(email);
             System.out.println("user: " + user);
@@ -85,21 +87,21 @@ public class WordController {
 
             System.out.println("Model attributes set");
 
-//        }
-//        catch (WordRepositoryException e) {
-//            System.out.println("Error occurred while fetching word from the repository: " + e.getMessage());
-//            model.addAttribute("errorMessage", "Error occurred while fetching word. Please try again later.");
-//            return "error";
-//        } catch (NoWordsFoundException e) {
-//            System.out.println("An error has occurred. Database is empty");
+        }
+        catch (WordRepositoryException e) {
+            System.out.println("Error occurred while fetching word from the repository: " + e.getMessage());
+            model.addAttribute("errorMessage", "Error occurred while fetching word. Please try again later.");
+            return "error";
+        } catch (NoWordsFoundException e) {
+            System.out.println("An error has occurred. Database is empty");
 //        } catch (NoRootsFoundException e) {
 //        System.out.println("Error: No roots found for the specified word ID");
 //        model.addAttribute("errorMessage", "No roots found for the current word.");
 //        return "error";
-//        } catch (Exception e) {
-//            e.printStackTrace(); // To catch any other unexpected exceptions
-//        } finally {
+        } catch (Exception e) {
+            e.printStackTrace(); // To catch any other unexpected exceptions
+        } finally {
             return "flashcard";
-//        }
+        }
     }
 }

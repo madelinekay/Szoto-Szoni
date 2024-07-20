@@ -24,12 +24,12 @@ public class RootCService {
     }
 
     public List<RootC> getRootsInOrder(int wordId)
-//            throws NoRootsFoundException
+            throws NoRootsFoundException
     {
         List<RootC> roots = rootCRepository.getRootsInOrder(wordId);
         if (roots.isEmpty()) {
             System.out.println("root service no roots");
-//            throw new NoRootsFoundException("No roots found in the database for the given word ID: " + wordId);
+            throw new NoRootsFoundException("No roots found in the database for the given word ID: " + wordId);
         }
         return roots;
     }
