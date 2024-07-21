@@ -12,7 +12,9 @@ public class RootDTO {
     private String name;
     @NotEmpty
     private String english;
-    private boolean flagged;
+    private String partOfSpeech;
+    private String origin;
+    private String mutation;
 
     public String getName() {
         return name;
@@ -26,15 +28,43 @@ public class RootDTO {
         return english;
     }
 
+    public String getPartOfSpeech() {
+        return partOfSpeech;
+    }
+
+    public void setPartOfSpeech(String partOfSpeech) {
+        this.partOfSpeech = partOfSpeech;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
     public void setEnglish(String english) {
         this.english = english;
     }
 
-    public boolean isFlagged() {
-        return flagged;
+
+    public String getMutation() {
+        return mutation;
     }
 
-    public void setFlagged(boolean flagged) {
-        this.flagged = flagged;
+    public void setMutation(String mutation) {
+        this.mutation = mutation;
+    }
+
+    @Override
+    public String toString() {
+        return "RootDTO{" +
+                "name='" + name + '\'' +
+                ", english='" + english + '\'' +
+                ", partOfSpeech='" + partOfSpeech + '\'' +
+                ", origin='" + origin + '\'' +
+                ", mutation='" + mutation + '\'' +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.controller;
 
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.data.RootWordId;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.RootDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.UserWordDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.WordDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.exceptions.NoRootsFoundException;
@@ -57,9 +58,21 @@ public class WordController {
                 System.out.println("null");
                 throw new NoWordsFoundException("Database is empty");
             }
-            List<RootC> rootCs = wordc.getRootWords().stream().sorted(Comparator.comparing(RootWord::getPosition)).map(RootWord::getRootC).collect(Collectors.toList());
+//            List<RootC> rootCs = wordc.getRootWords().stream().sorted(Comparator.comparing(RootWord::getPosition)).map(RootWord::getRootC).collect(Collectors.toList());
+            List<RootDTO> rootsWithMutation = wordc.getRootWords().stream().sorted(Comparator.comparing(RootWord::getPosition)).map(rootWord -> {
+                RootC rootc = rootWord.getRootC();
+                RootDTO rootDTO = new RootDTO();
+                rootDTO.setName(rootc.getName());
+                rootDTO.setEnglish(rootc.getEnglish());
+                rootDTO.setPartOfSpeech(rootc.getPartOfSpeech());
+                rootDTO.setOrigin(rootc.getOrigin());
+                rootDTO.setMutation(rootWord.getMutation());
+                return rootDTO;
+            }).collect(Collectors.toList());
 //            List<RootC> rootCs = rootCService.getRootsInOrder(wordc.getId());
-            System.out.println(rootCs);
+            System.out.println(rootsWithMutation);
+//            List<RootC> rootCs = rootCService.getRootsInOrder(wordc.getId());
+            System.out.println(rootsWithMutation);
 
             String email = userDetails.getUsername();
             User user = userService.findUserByEmail(email);
@@ -81,7 +94,7 @@ public class WordController {
             System.out.println("Saved user: " + user);
 
             model.addAttribute("user", user);
-            model.addAttribute("rootcs", rootCs);
+            model.addAttribute("rootcs", rootsWithMutation);
             model.addAttribute("word", wordc);
             model.addAttribute("isFlipped", false);
 
@@ -105,3 +118,4 @@ public class WordController {
         }
     }
 }
+
