@@ -62,7 +62,11 @@ public class WordController {
                 rootDTO.setEnglish(rootc.getEnglish());
                 rootDTO.setPartOfSpeech(rootc.getPartOfSpeech());
                 rootDTO.setOrigin(rootc.getOrigin());
-                rootDTO.setMutation(rootWord.getMutation());
+                if (rootWord.getMutation() != null) {
+                    rootDTO.setMutation(rootWord.getMutation());
+                } else {
+                    rootDTO.setMutation(rootc.getName());
+                }
                 return rootDTO;
             }).collect(Collectors.toList());
             System.out.println(rootsWithMutation);
@@ -85,7 +89,7 @@ public class WordController {
             userService.save(user);
 
             model.addAttribute("user", user);
-            model.addAttribute("rootcs", rootsWithMutation);
+            model.addAttribute("roots", rootsWithMutation);
             model.addAttribute("word", wordc);
             model.addAttribute("isFlipped", false);
 
