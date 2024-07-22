@@ -1,15 +1,11 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.APIRootDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.APIWordDTO;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.WordDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.ChatGPTRoot;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.ChatGPTWord;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.ChatGPTRootRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.ChatGPTWordRepository;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 @Service
@@ -63,6 +60,7 @@ public class PythonAPIClient {
             RestTemplate restTemplate = new RestTemplate();
 
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            ObjectMapper mapper = new ObjectMapper();
             String inputLine;
             StringBuffer content = new StringBuffer();
             while ((inputLine = in.readLine()) != null) {

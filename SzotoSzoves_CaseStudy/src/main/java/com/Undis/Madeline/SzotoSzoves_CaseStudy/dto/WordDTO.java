@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 public class WordDTO {
@@ -13,8 +14,17 @@ public class WordDTO {
     private String name;
     @NotEmpty
     private String english;
-    @NotEmpty
     private String wordSequence;
+    private List<RootDTO> roots;
+
+
+    public WordDTO(String name, String english, String wordSequence, List roots) {
+        this.name = name;
+        this.english = english;
+        this.wordSequence = wordSequence;
+        this.roots = roots;
+    }
+    public WordDTO() {};
 
     public String getWordSequence() {
         return wordSequence;

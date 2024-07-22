@@ -1,6 +1,7 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Root;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.RootRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,5 @@ public class RootService {
         System.out.println(roots);
         return roots;
     }
-
 
 }
