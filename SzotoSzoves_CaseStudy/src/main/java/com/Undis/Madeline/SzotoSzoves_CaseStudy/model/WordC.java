@@ -23,7 +23,6 @@ public class WordC {
     private Set<RootWord> rootWords;
     private String name;
     private String english;
-    private String wordSequence;
     private int difficulty;
     private boolean flagged;
     private String partOfSpeech;
@@ -32,16 +31,16 @@ public class WordC {
     private Set<UserWord> userWords;
 
 
-    public WordC(int id, String name, String english, String wordSequence, Set<RootWord> rootWords, int difficulty, boolean flagged, String partOfSpeech) {
+    public WordC(int id, String name, String english, String wordSequence, Set<RootWord> rootWords, int difficulty, boolean flagged, String partOfSpeech, String image) {
         this.id = id;
         this.name = name;
         this.english = english;
-        this.wordSequence = wordSequence;
         this.rootWords = rootWords;
         this.difficulty = difficulty;
         this.flagged = flagged;
         this.partOfSpeech = partOfSpeech;
         this.userWords = userWords;
+        this.image = image;
     }
 
     @Override
@@ -51,7 +50,6 @@ public class WordC {
                 ", rootWordsIds=" + rootWords.stream().map(RootWord::getId).collect(Collectors.toList()) +
                 ", name='" + name + '\'' +
                 ", english='" + english + '\'' +
-                ", wordSequence='" + wordSequence + '\'' +
                 ", difficulty=" + difficulty +
                 ", flagged=" + flagged +
                 ", partOfSpeech='" + partOfSpeech + '\'' +
