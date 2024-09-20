@@ -59,7 +59,8 @@ public class WordController {
             System.out.println(e);
         }
         try {
-            WordC wordc = wordCService.getWord();
+            String language = userService.findUserByEmail(userDetails.getUsername()).getLanguage();
+            WordC wordc = wordCService.getWord(language);
             if (wordc == null) {
                 throw new NoWordsFoundException("Database is empty");
             }

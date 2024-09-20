@@ -19,8 +19,8 @@ public class WordCService {
         this.wordCRepository = wordCRepository;
     }
 
-    public WordC getWord() throws WordRepositoryException {
-        Optional<WordC> wordOptional = wordCRepository.findRandomWord();
+    public WordC getWord(String language) throws WordRepositoryException {
+        Optional<WordC> wordOptional = wordCRepository.findRandomWord(language);
         if(wordOptional.isPresent()) {
             WordC word = wordOptional.get();
             System.out.println("Word: " + word);

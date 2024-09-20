@@ -29,9 +29,10 @@ public class WordC {
     private String image;
     @OneToMany(fetch = FetchType.EAGER)
     private Set<UserWord> userWords;
+    private String language;
 
 
-    public WordC(int id, String name, String english, String wordSequence, Set<RootWord> rootWords, int difficulty, boolean flagged, String partOfSpeech, String image) {
+    public WordC(int id, String name, String english, String wordSequence, Set<RootWord> rootWords, int difficulty, boolean flagged, String partOfSpeech, String image, String language) {
         this.id = id;
         this.name = name;
         this.english = english;
@@ -41,6 +42,7 @@ public class WordC {
         this.partOfSpeech = partOfSpeech;
         this.userWords = userWords;
         this.image = image;
+        this.language = language;
     }
 
     @Override

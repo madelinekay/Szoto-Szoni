@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface WordCRepository extends JpaRepository<WordC, Integer> {
-    @Query("SELECT w FROM WordC w ORDER BY RAND() LIMIT 1")
-    Optional<WordC> findRandomWord();
+    @Query("SELECT w FROM WordC w where w.language = :language ORDER BY RAND() LIMIT 1")
+    Optional<WordC> findRandomWord(@Param("language") String language);
 }
