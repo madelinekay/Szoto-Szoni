@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.BufferedReader;
@@ -50,6 +51,38 @@ public class PythonAPIClient {
 
         // Save the word and its roots
         wordRepository.save(chatGPTWord);
+        System.out.println(chatGPTWord);
+    }
+    public void sendDataToFlaskApp() {
+        try {
+            // URL of your Flask app endpoint to receive data
+            // 1. deploy python app to prod
+            // 2. change this url to read from config or ENV
+            // 3. set that to the python prod URL
+            URL url = new URL("http://127.0.0.1:5000/receive_data");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST"); // Using POST method to send data
+            conn.setDoOutput(true); // Allow output
+
+            // Data to be sent, you can customize this as needed
+            String data = "\"Hello World!\"";
+
+            // Send the request
+            OutputStream os = conn.getOutputStream();
+            os.write(data.getBytes());
+            os.flush();
+
+            int responseCode = conn.getResponseCode(); // Check the response code
+            if (responseCode == HttpURLConnection.HTTP_OK) { // 200 OK
+                System.out.println("Data sent to Flask app successfully!");
+            } else {
+                System.out.println("Error sending data to Flask app, response code: " + responseCode);
+            }
+
+            conn.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public void getWord() {
         try {
