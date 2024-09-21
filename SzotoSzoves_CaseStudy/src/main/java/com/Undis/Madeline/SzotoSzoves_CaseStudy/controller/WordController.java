@@ -54,7 +54,7 @@ public class WordController {
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) throws NoWordsFoundException {
         try {
             pythonAPIClient.getWord();
-            pythonAPIClient.sendDataToFlaskApp();
+//            pythonAPIClient.sendDataToFlaskApp();
         } catch(Error e) {
             System.out.println(e);
         }
