@@ -20,4 +20,11 @@ public interface UserWordRepository extends JpaRepository<UserWord, Integer> {
     @Modifying
     @Query("DELETE FROM UserWord u WHERE u.id = :wordId AND u.user = :user")
     void deleteByIdAndUser(@Param("wordId") int wordId, @Param("user") User user);
+
+//    List<UserWord> findByNameIgnoreCase(String query);
+    List<UserWord> findByNameContainingIgnoreCase(String name);
+
+
+//    List<UserWord> findByName(String name);
+
 }

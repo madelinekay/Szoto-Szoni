@@ -26,8 +26,25 @@ public class UserWordController {
         this.userService = userService;
     }
 
+    @GetMapping("/search")
+//    public String search(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(name = "query") String query, Model model) {
+    public String search(@AuthenticationPrincipal UserDetails userDetails, @RequestParam String query, Model model) {
+        // Replace the following line with your actual search implementation
+//        List<UserWord> filteredWords = userWordService.findByNameIgnoreCase(query);
+        List<UserWord> filteredWords = userWordService.search(query);
+
+        String email = userDetails.getUsername();
+        User user = userService.findUserByEmail(email);
+        System.out.println("FILTERED WORDS: " + filteredWords);
+
+        model.addAttribute("user", user);
+        model.addAttribute("words", filteredWords);
+        return "collections";
+    }
     @GetMapping("/collections")
     public String getWords(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        // to-do implement query
+
         String email = userDetails.getUsername();
         User user = userService.findUserByEmail(email);
         List<UserWord> words = userWordService.getUserWords(user);

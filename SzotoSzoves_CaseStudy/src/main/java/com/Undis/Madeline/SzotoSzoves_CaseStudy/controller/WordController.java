@@ -87,6 +87,7 @@ public class WordController {
                 return "error"; // or some error page
             }
 
+
             UserWordDTO userWordDTO = new UserWordDTO();
             userWordDTO.setName(wordc.getName());
             userWordDTO.setEnglish(wordc.getEnglish());

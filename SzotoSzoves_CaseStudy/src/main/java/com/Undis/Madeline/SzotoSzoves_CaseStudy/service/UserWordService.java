@@ -72,4 +72,16 @@ public class UserWordService {
         userWordRepository.save(userWord);
         user.getUserWords().add(userWord);
     }
+
+    public List<UserWord> search(String query) {
+        return userWordRepository.findByNameContainingIgnoreCase(query);
+    }
+
+//    public List<UserWord> findByNameIgnoreCase(String query) {
+//        return userWordRepository.findByNameIgnoreCase(query);
+//    }
+
+//    public List<UserWord> search(String query) {
+//        return userWordRepository.findByName(query);
+//    }
 }
