@@ -1,6 +1,5 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.dto;
 
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Root;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;

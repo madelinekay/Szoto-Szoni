@@ -3,7 +3,6 @@ package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.exceptions.WordRepositoryException;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.WordC;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordCRepository;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

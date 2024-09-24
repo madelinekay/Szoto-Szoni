@@ -1,7 +1,6 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.dto;
 
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.WordC;
 
 public class UserWordDTO {

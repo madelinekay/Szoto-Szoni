@@ -1,13 +1,14 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy;
 
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Root;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.exceptions.NoRootsFoundException;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.RootC;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.UserWord;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.RootService;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.WordC;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.RootCService;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.UserService;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.UserWordService;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.WordService;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.WordCService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
@@ -26,9 +27,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class SzotoSzovesCaseStudyApplicationTests {
 	@Autowired
-	private WordService wordService;
+	private WordCService wordService;
 	@Autowired
-	private RootService rootService;
+	private RootCService rootService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -36,7 +37,7 @@ class SzotoSzovesCaseStudyApplicationTests {
 
 	@Test
 	 void wordNotNull() {
-		assertNotNull(wordService.getWord(), "word should not be null");
+		assertNotNull(wordService.getWord("Turkish"), "word should not be null");
 	}
 
 	@ParameterizedTest
@@ -58,16 +59,19 @@ class SzotoSzovesCaseStudyApplicationTests {
 	@Test
 	void rootsAreRenderedInOrder() {
 		List<String> sequence = new ArrayList<>(Arrays.asList("szó", "kapcsol", "a", "t"));
-		Optional<Word> optionalWord = wordService.getWordById(7);
+		Optional<WordC> optionalWord = wordService.getWordById(7);
 		optionalWord.ifPresent(word -> {
-			List<Root> roots = rootService.getRootsInOrder(word.getId());
+			List<RootC> roots = null;
+			try {
+				roots = rootService.getRootsInOrder(word.getId());
+			} catch (NoRootsFoundException e) {
+				throw new RuntimeException(e);
+			}
 			System.out.println("roots");
 			assertEquals(sequence.size(), roots.size());
 			for (int i=0; i<roots.size(); i++) {
 				assertTrue(roots.get(i).getName().equals(sequence.get(i)));
 			}
 		});
-//		call root service getting roots and sorting in order
-
 	}
 }

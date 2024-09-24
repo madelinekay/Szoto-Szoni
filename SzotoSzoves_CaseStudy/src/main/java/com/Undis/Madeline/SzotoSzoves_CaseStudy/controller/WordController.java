@@ -11,7 +11,6 @@ import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.*;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.RootCRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.RootWordRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordCRepository;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,7 @@ import java.util.stream.Collectors;
 
 @Controller
 public class WordController {
-    private WordService wordService;
     private UserService userService;
-    private RootService rootService;
     private UserWordService userWordService;
     private RootCRepository rootCRepository;
     private WordCRepository wordCRepository;

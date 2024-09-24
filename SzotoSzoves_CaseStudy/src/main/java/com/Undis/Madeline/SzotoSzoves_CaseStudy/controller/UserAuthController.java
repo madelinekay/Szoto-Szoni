@@ -2,7 +2,6 @@ package com.Undis.Madeline.SzotoSzoves_CaseStudy.controller;
 
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.UserDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

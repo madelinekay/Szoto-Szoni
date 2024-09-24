@@ -1,6 +1,5 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.dto;
 
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

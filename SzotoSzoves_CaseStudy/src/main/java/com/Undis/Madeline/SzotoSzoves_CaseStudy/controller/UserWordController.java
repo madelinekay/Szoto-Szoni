@@ -2,10 +2,8 @@ package com.Undis.Madeline.SzotoSzoves_CaseStudy.controller;
 
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.UserWord;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.UserService;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.UserWordService;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,10 +25,7 @@ public class UserWordController {
     }
 
     @GetMapping("/search")
-//    public String search(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(name = "query") String query, Model model) {
     public String search(@AuthenticationPrincipal UserDetails userDetails, @RequestParam String query, Model model) {
-        // Replace the following line with your actual search implementation
-//        List<UserWord> filteredWords = userWordService.findByNameIgnoreCase(query);
         List<UserWord> filteredWords = userWordService.search(query);
 
         String email = userDetails.getUsername();
@@ -43,8 +38,6 @@ public class UserWordController {
     }
     @GetMapping("/collections")
     public String getWords(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        // to-do implement query
-
         String email = userDetails.getUsername();
         User user = userService.findUserByEmail(email);
         List<UserWord> words = userWordService.getUserWords(user);
@@ -64,7 +57,6 @@ public class UserWordController {
         return "/flagged";
     }
 
-    // TODO: @DeleteMapping("/words/{id}")
     @PostMapping("/delete/{wordId}")
     public String deleteWord(@AuthenticationPrincipal UserDetails userDetails, @PathVariable int wordId) {
         System.out.println("IN DELETE");

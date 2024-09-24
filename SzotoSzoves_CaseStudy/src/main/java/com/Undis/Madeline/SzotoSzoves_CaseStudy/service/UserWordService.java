@@ -3,7 +3,6 @@ package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.UserWordDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.UserWord;
-import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.Word;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.UserWordRepository;
 import groovy.util.logging.Slf4j;
 import jakarta.persistence.EntityManager;
@@ -24,7 +23,7 @@ public class UserWordService {
     @PersistenceContext
     private EntityManager entityManager;
     private UserWordRepository userWordRepository;
-    private static Logger logger = LoggerFactory.getLogger(WordService.class);
+    private static Logger logger = LoggerFactory.getLogger(WordCService.class);
 
     @Autowired
     public UserWordService(EntityManager entityManager, UserWordRepository userWordRepository) {
