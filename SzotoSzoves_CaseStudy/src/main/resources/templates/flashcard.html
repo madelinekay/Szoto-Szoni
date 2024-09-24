@@ -35,13 +35,8 @@
                     <div style="display: flex; flex-direction: column; align-items: center">
                     <img id="card_image" class="object-fit-contain"
                          style="display: block; width: 12rem; margin-bottom: 1.5rem; margin-left: auto; margin-right: auto;"
-                         th:src="@{'images/' + ${word.english} + '.webp'}" alt="computer"/>
+                         th:src="@{'images/' + ${word.english} + '.webp'}" />
                     <div class="roots-container">
-                        <!--                    <span >-->
-
-                        <!--                        <span class="dot">•</span>-->
-
-
                         <span th:each="root: ${roots}" style="font-family: 'Times New Roman', Times, serif; font-size: 2rem; color: darkslategray"
                               th:text="${root.mutation}"
                               th:class="${root.partOfSpeech}"></span>
@@ -60,15 +55,7 @@
                                   th:class="${root.partOfSpeech}"></span>
                             <div style="font-size: 1rem; color: darkslategray; opacity:.7; display: flex; justify-content: space-between">
                                 <span th:text="${root.english} + '; ' + ${root.origin}"></span>
-                                <!--                                <div th:text="${root.origin} != null ? ${root.partOfSpeech} + ', ' + ${root.origin} : ${root.partOfSpeech}"></div>-->
-<!--                                <div th:text="${root.origin}"></div>-->
-
                             </div>
-                            <!--                            <div>-->
-                            <!--                               <span style="font-size: 1.25rem; color: darkslategray" th:text="${root.name}" th:class="${root.partOfSpeech}"></span>-->
-                            <!--                                <span style="font-size: 1rem; color: darkslategray; opacity:.7;" th:text="${root.english}"></span>-->
-                            <!--                            </div>-->
-                            <!--                            <span style="font-size: 1rem; color: darkslategray; opacity:.7;" th:text="${root.origin}"></span>-->
                         </div>
                     </div>
                 </div>

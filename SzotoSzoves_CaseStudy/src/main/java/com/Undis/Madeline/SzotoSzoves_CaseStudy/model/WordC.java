@@ -26,7 +26,6 @@ public class WordC {
     private int difficulty;
     private boolean flagged;
     private String partOfSpeech;
-    private String image;
     @OneToMany(fetch = FetchType.EAGER)
     private Set<UserWord> userWords;
     private String language;
@@ -41,7 +40,6 @@ public class WordC {
         this.flagged = flagged;
         this.partOfSpeech = partOfSpeech;
         this.userWords = userWords;
-        this.image = image;
         this.language = language;
     }
 
@@ -55,7 +53,6 @@ public class WordC {
                 ", difficulty=" + difficulty +
                 ", flagged=" + flagged +
                 ", partOfSpeech='" + partOfSpeech + '\'' +
-                ", image='" + image + '\'' +
                 '}';
     }
 

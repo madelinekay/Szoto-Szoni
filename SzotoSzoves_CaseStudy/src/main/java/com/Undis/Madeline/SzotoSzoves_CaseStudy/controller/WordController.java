@@ -13,6 +13,7 @@ import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.RootWordRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordCRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.WordRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.service.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,6 +51,15 @@ public class WordController {
         this.rootWordRepository = rootWordRepository;
     }
 
+    public boolean wordAlreadyExists(User user, WordC wordc) {
+        for (UserWord userWord : user.getUserWords()) {
+            if (userWord.getWord().getId() == wordc.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @GetMapping("/flashcard")
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) throws NoWordsFoundException {
         try {
@@ -58,6 +68,7 @@ public class WordController {
         } catch(Error e) {
             System.out.println(e);
         }
+
         try {
             String language = userService.findUserByEmail(userDetails.getUsername()).getLanguage();
             WordC wordc = wordCService.getWord(language);
@@ -87,15 +98,16 @@ public class WordController {
                 return "error"; // or some error page
             }
 
+            if (!wordAlreadyExists(user, wordc)) {
+                UserWordDTO userWordDTO = new UserWordDTO();
+                userWordDTO.setName(wordc.getName());
+                userWordDTO.setEnglish(wordc.getEnglish());
+                userWordDTO.setUser(user);
+                userWordDTO.setWord(wordc);
+                userWordService.convertToUserWordEntity(userWordDTO, user);
 
-            UserWordDTO userWordDTO = new UserWordDTO();
-            userWordDTO.setName(wordc.getName());
-            userWordDTO.setEnglish(wordc.getEnglish());
-            userWordDTO.setUser(user);
-            userWordDTO.setWord(wordc);
-            userWordService.convertToUserWordEntity(userWordDTO, user);
-
-            userService.save(user);
+                userService.save(user);
+            }
 
             model.addAttribute("user", user);
             model.addAttribute("roots", rootsWithMutation);

@@ -44,8 +44,4 @@ public class UserWord {
         return id == userWord.id && flagged == userWord.flagged && Objects.equals(word, userWord.word) && Objects.equals(user, userWord.user) && Objects.equals(name, userWord.name) && Objects.equals(english, userWord.english) && Objects.equals(notes, userWord.notes);
     }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, word, user, name, english, flagged, notes);
-//    }
 }

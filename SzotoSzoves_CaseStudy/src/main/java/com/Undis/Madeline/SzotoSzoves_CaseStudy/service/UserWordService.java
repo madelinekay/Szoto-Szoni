@@ -28,7 +28,6 @@ public class UserWordService {
 
     @Autowired
     public UserWordService(EntityManager entityManager, UserWordRepository userWordRepository) {
-//        this.entityManager = entityManager;
         this.userWordRepository = userWordRepository;
     }
     public List<UserWord> getUserWords(User user) {
@@ -48,19 +47,12 @@ public class UserWordService {
     }
     @Transactional
     public void deleteWord(int wordId, User user) {
-        System.out.println("DELETEWORD");
         try {
             userWordRepository.deleteByIdAndUser(wordId, user);
         } catch (Exception e) {
             logger.atError();
         }
     }
-//doesn't work
-//    @Transactional
-//    public void deleteWord(int wordId, User user) {
-//        Optional<UserWord> userWordOptional = userWordRepository.findByIdAndUser(wordId, user);
-//        userWordOptional.ifPresent(userWordRepository::delete);
-//    }
     @Transactional
     public void convertToUserWordEntity(UserWordDTO userWordDTO, User user) {
         UserWord userWord = new UserWord();
@@ -77,11 +69,4 @@ public class UserWordService {
         return userWordRepository.findByNameContainingIgnoreCase(query);
     }
 
-//    public List<UserWord> findByNameIgnoreCase(String query) {
-//        return userWordRepository.findByNameIgnoreCase(query);
-//    }
-
-//    public List<UserWord> search(String query) {
-//        return userWordRepository.findByName(query);
-//    }
 }
