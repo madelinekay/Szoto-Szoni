@@ -32,12 +32,6 @@ public class PythonAPIClient {
     @Value("${chatgpt.api.key}")
     private String chatGptApiKey;
 
-    @PostConstruct
-    public void init() {
-        System.out.println("chatGptApiUrl: " + chatGptApiUrl);
-        System.out.println("chatGptApiKey: " + chatGptApiKey);
-    }
-
     @Autowired
     public PythonAPIClient(ChatGPTWordRepository wordRepository, ObjectMapper objectMapper, ChatGPTRootRepository rootRepository, RestTemplate restTemplate) {
         this.wordRepository = wordRepository;
