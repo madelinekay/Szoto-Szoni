@@ -8,6 +8,7 @@ import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.ChatGPTRootRepository
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.ChatGPTWordRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +31,12 @@ public class PythonAPIClient {
 
     @Value("${chatgpt.api.key}")
     private String chatGptApiKey;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("chatGptApiUrl: " + chatGptApiUrl);
+        System.out.println("chatGptApiKey: " + chatGptApiKey);
+    }
 
     @Autowired
     public PythonAPIClient(ChatGPTWordRepository wordRepository, ObjectMapper objectMapper, ChatGPTRootRepository rootRepository, RestTemplate restTemplate) {

@@ -59,12 +59,12 @@ public class WordController {
 
     @GetMapping("/flashcard")
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) throws NoWordsFoundException {
-        try {
-            pythonAPIClient.getWord();
-//            pythonAPIClient.sendDataToFlaskApp();
-        } catch(Error e) {
-            System.out.println(e);
-        }
+//        try {
+//            pythonAPIClient.getWord();
+////            pythonAPIClient.sendDataToFlaskApp();
+//        } catch(Error e) {
+//            System.out.println(e);
+//        }
 
         try {
             String language = userService.findUserByEmail(userDetails.getUsername()).getLanguage();
