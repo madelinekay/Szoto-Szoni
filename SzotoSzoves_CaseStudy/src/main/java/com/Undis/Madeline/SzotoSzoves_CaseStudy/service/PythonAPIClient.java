@@ -1,15 +1,20 @@
 package com.Undis.Madeline.SzotoSzoves_CaseStudy.service;
 
+
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.APIRootDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.dto.APIWordDTO;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.ChatGPTRoot;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.ChatGPTWord;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.User;
+import com.Undis.Madeline.SzotoSzoves_CaseStudy.model.UserWord;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.ChatGPTRootRepository;
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.ChatGPTWordRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -18,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PythonAPIClient {
@@ -25,6 +31,7 @@ public class PythonAPIClient {
     private ChatGPTWordRepository wordRepository;
     private ChatGPTRootRepository rootRepository;
     private RestTemplate restTemplate;
+    private UserWordService userWordService;
 
     @Value("${chatgpt.api.url}")
     private String chatGptApiUrl;
@@ -32,12 +39,14 @@ public class PythonAPIClient {
     @Value("${chatgpt.api.key}")
     private String chatGptApiKey;
 
+
     @Autowired
-    public PythonAPIClient(ChatGPTWordRepository wordRepository, ObjectMapper objectMapper, ChatGPTRootRepository rootRepository, RestTemplate restTemplate) {
+    public PythonAPIClient(ChatGPTWordRepository wordRepository, ObjectMapper objectMapper, ChatGPTRootRepository rootRepository, RestTemplate restTemplate, UserWordService userWordService) {
         this.wordRepository = wordRepository;
         this.objectMapper = objectMapper;
         this.rootRepository = rootRepository;
         this.restTemplate = restTemplate;
+        this.userWordService = userWordService;
     }
     @Transactional
     public void saveWordAndRoots(APIWordDTO apiWordDTO) {
@@ -58,18 +67,56 @@ public class PythonAPIClient {
         System.out.println(chatGPTWord);
     }
 
-    public void getWord() {
-        try {
-            // Create the request body
-            String requestBody = "{\"model\": \"gpt-4-0125-preview\", \"response_format\": {\"type\": \"json_object\"}, \"messages\": [{\"role\": \"system\", \"content\": \"The user is learning Turkish. Here are some words they've already learned: - bir (one) - kitap (book) - yaz (summer)\"}, {\"role\": \"user\", \"content\": \"Give me a Turkish word, its English translation, difficulty level 1 through 5, and a breakdown of each root in the word and its translation. The word should be different from the ones the user already knows and every so often be related by roots or origin. Provide the response in the format of this JSON object: { \\\"name\\\": \\\"word\\\", \\\"english\\\": \\\"english\\\", \\\"difficulty\\\": difficulty, \\\"roots\\\": [{ \\\"name\\\": \\\"root\\\", \\\"english\\\": \\\"english\\\"}]}. Ensure the response is valid JSON.\"}]}";
+    public void getWord(User user) {
 
-            // Create the request headers
+        List<UserWord> userWords = userWordService.getUserWords(user);
+        // Extract the user's known words
+        StringBuilder knownWords = new StringBuilder();
+        for (UserWord userWord : userWords) {
+            knownWords.append("- ").append(userWord.getName()).append(" (").append(userWord.getEnglish()).append(")\n");
+        }
+
+        System.out.println(userWords);
+        try {
+//             Create the request body
+            JSONObject requestBody = new JSONObject();
+            requestBody.put("model", "gpt-4o");
+
+            JSONObject responseFormat = new JSONObject();
+            responseFormat.put("type", "json_object");
+            requestBody.put("response_format", responseFormat);
+
+            JSONArray messages = new JSONArray();
+
+            JSONObject systemMessage = new JSONObject();
+            systemMessage.put("role", "system");
+            systemMessage.put("content", "The user is learning " + user.getLanguage() + ". Here are some words they've already learned:\n" + knownWords.toString() + "\nGive me a " + user.getLanguage() + " word, its English translation, difficulty level 1 through 5, and a breakdown of each root in the word and its translation. The word should be different from the ones the user already knows and every so often be related by roots or origin. Provide the response in the format of this JSON object: { \\\"name\\\": \\\"word\\\", \\\"english\\\": \\\"english\\\", \\\"difficulty\\\": difficulty, \\\"roots\\\": [{ \\\"name\\\": \\\"root\\\", \\\"english\\\": \\\"english\\\"}]}. Ensure the response is valid JSON.");
+            messages.put(systemMessage);
+//
+            JSONObject userMessage = new JSONObject();
+            userMessage.put("role", "user");
+            userMessage.put("content", "Give me a " + user.getLanguage() + " word, its English translation, difficulty level 1 through 5, and a breakdown of each root in the word and its translation.");
+            messages.put(userMessage);
+
+            requestBody.put("messages", messages);
+
+            // Now you have the requestBody as a JSONObject
+            System.out.println(requestBody.toString());
+
+            // If you need to convert it to a String for sending the request
+            String requestBodyString = requestBody.toString();
+//
+//
+//            // Create the request headers
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("Authorization", "Bearer " + chatGptApiKey);
 
+
+            // Print the final request body for debugging
+            System.out.println(requestBody);
             // Create the request entity
-            HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+            HttpEntity<String> requestEntity = new HttpEntity<>(requestBodyString, headers);
 
             // Make the API call
             ResponseEntity<String> responseEntity = restTemplate.exchange(chatGptApiUrl, HttpMethod.POST, requestEntity, String.class);

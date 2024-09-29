@@ -32,11 +32,9 @@ public class WordController {
     private RootWordRepository rootWordRepository;
     private WordCService wordCService;
     private RootCService rootCService;
-
     private PythonAPIClient pythonAPIClient;
 
     @Autowired
-
     public WordController(WordCService wordService, UserWordService userWordService, UserService userService, RootCService rootService, RootCRepository rootCRepository, WordCRepository wordCRepository, RootWordRepository rootWordRepository, PythonAPIClient pythonAPIClient) {
         this.wordCService = wordService;
         this.userService = userService;
@@ -59,16 +57,26 @@ public class WordController {
 
     @GetMapping("/flashcard")
     public String getWord(Model model, @AuthenticationPrincipal UserDetails userDetails) throws NoWordsFoundException {
-//        try {
-//            pythonAPIClient.getWord();
-////            pythonAPIClient.sendDataToFlaskApp();
-//        } catch(Error e) {
-//            System.out.println(e);
-//        }
-
         try {
+            String email = userDetails.getUsername();
+            User user = userService.findUserByEmail(email);
+            if (user == null) {
+                System.out.println("User not found");
+                return "error"; // or some error page
+            }
+
+            try {
+                pythonAPIClient.getWord(user);
+//            pythonAPIClient.sendDataToFlaskApp();
+            } catch(Error e) {
+                System.out.println(e);
+            }
+
             String language = userService.findUserByEmail(userDetails.getUsername()).getLanguage();
             WordC wordc = wordCService.getWord(language);
+
+
+
             if (wordc == null) {
                 throw new NoWordsFoundException("Database is empty");
             }
@@ -87,13 +95,7 @@ public class WordController {
                 return rootDTO;
             }).collect(Collectors.toList());
 
-            String email = userDetails.getUsername();
-            User user = userService.findUserByEmail(email);
 
-            if (user == null) {
-                System.out.println("User not found");
-                return "error"; // or some error page
-            }
 
             if (!wordAlreadyExists(user, wordc)) {
                 UserWordDTO userWordDTO = new UserWordDTO();
