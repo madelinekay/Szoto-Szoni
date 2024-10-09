@@ -11,7 +11,6 @@ import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.ChatGPTRootRepository
 import com.Undis.Madeline.SzotoSzoves_CaseStudy.repository.ChatGPTWordRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,8 +22,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+// TODO: 10/8/24 add language to chatgptword and root; update class names  
 @Service
 public class PythonAPIClient {
     private ObjectMapper objectMapper;
@@ -50,10 +49,8 @@ public class PythonAPIClient {
     }
     @Transactional
     public void saveWordAndRoots(APIWordDTO apiWordDTO) {
-        // Create the ChatGPTWord entity
         ChatGPTWord chatGPTWord = new ChatGPTWord(apiWordDTO.getName(), apiWordDTO.getEnglish(), "", apiWordDTO.getDifficulty());
 
-        // Create the ChatGPTRoot entities and add them to the word's roots list
         List<ChatGPTRoot> chatGPTRoots = new ArrayList<>();
         for (APIRootDTO apiRootDTO : apiWordDTO.getRoots()) {
             ChatGPTRoot chatGPTRoot = new ChatGPTRoot(apiRootDTO.getName(), apiRootDTO.getEnglish());
@@ -62,7 +59,6 @@ public class PythonAPIClient {
         }
         chatGPTWord.setRoots(chatGPTRoots);
 
-        // Save the word and its roots
         wordRepository.save(chatGPTWord);
         System.out.println(chatGPTWord);
     }
@@ -76,9 +72,7 @@ public class PythonAPIClient {
             knownWords.append("- ").append(userWord.getName()).append(" (").append(userWord.getEnglish()).append(")\n");
         }
 
-        System.out.println(userWords);
         try {
-//             Create the request body
             JSONObject requestBody = new JSONObject();
             requestBody.put("model", "gpt-4o");
 
@@ -99,49 +93,30 @@ public class PythonAPIClient {
             messages.put(userMessage);
 
             requestBody.put("messages", messages);
-
-            // Now you have the requestBody as a JSONObject
-            System.out.println(requestBody.toString());
-
-            // If you need to convert it to a String for sending the request
             String requestBodyString = requestBody.toString();
-//
-//
-//            // Create the request headers
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("Authorization", "Bearer " + chatGptApiKey);
-
-
-            // Print the final request body for debugging
-            System.out.println(requestBody);
-            // Create the request entity
             HttpEntity<String> requestEntity = new HttpEntity<>(requestBodyString, headers);
 
-            // Make the API call
+            // Make the API call and check response status
             ResponseEntity<String> responseEntity = restTemplate.exchange(chatGptApiUrl, HttpMethod.POST, requestEntity, String.class);
-
-            // Check the response status
             if (responseEntity.getStatusCode() == HttpStatus.OK) {
                 // Parse the response JSON
                 String responseJson = responseEntity.getBody();
                 System.out.println("Response JSON: " + responseJson);
 
-                // Use ObjectMapper to parse the main response
+                // Parse the main response
                 ObjectMapper mapper = new ObjectMapper();
                 JsonNode rootNode = mapper.readTree(responseJson);
 
-                // Extract the "content" field inside the "message" node
+                // Extract the "content" field inside the "message" node and parse content
                 String content = rootNode.get("choices")
                         .get(0)
                         .get("message")
                         .get("content")
                         .asText();
-
-                // Parse the stringified JSON inside the "content" field
                 APIWordDTO wordDTO = mapper.readValue(content, APIWordDTO.class);
-
-                System.out.println("APIWordDTO from chatGPT API: " + wordDTO);
                 saveWordAndRoots(wordDTO);
 
             } else {

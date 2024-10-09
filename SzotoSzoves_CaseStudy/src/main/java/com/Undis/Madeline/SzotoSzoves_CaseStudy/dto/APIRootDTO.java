@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class APIRootDTO {
         private String name;
-
         private String english;
 
     public APIRootDTO() {}

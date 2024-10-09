@@ -62,20 +62,15 @@ public class WordController {
             User user = userService.findUserByEmail(email);
             if (user == null) {
                 System.out.println("User not found");
-                return "error"; // or some error page
+                return "error";
             }
-
             try {
                 pythonAPIClient.getWord(user);
-//            pythonAPIClient.sendDataToFlaskApp();
             } catch(Error e) {
                 System.out.println(e);
             }
-
             String language = userService.findUserByEmail(userDetails.getUsername()).getLanguage();
             WordC wordc = wordCService.getWord(language);
-
-
 
             if (wordc == null) {
                 throw new NoWordsFoundException("Database is empty");
@@ -95,8 +90,6 @@ public class WordController {
                 return rootDTO;
             }).collect(Collectors.toList());
 
-
-
             if (!wordAlreadyExists(user, wordc)) {
                 UserWordDTO userWordDTO = new UserWordDTO();
                 userWordDTO.setName(wordc.getName());
@@ -104,7 +97,6 @@ public class WordController {
                 userWordDTO.setUser(user);
                 userWordDTO.setWord(wordc);
                 userWordService.convertToUserWordEntity(userWordDTO, user);
-
                 userService.save(user);
             }
 
@@ -112,9 +104,7 @@ public class WordController {
             model.addAttribute("roots", rootsWithMutation);
             model.addAttribute("word", wordc);
             model.addAttribute("isFlipped", false);
-
             return "flashcard";
-
         } catch (WordRepositoryException e) {
             System.out.println("Error occurred while fetching word from the repository: " + e.getMessage());
             model.addAttribute("errorMessage", "Error occurred while fetching word. Please try again later.");
@@ -123,7 +113,7 @@ public class WordController {
             System.out.println("An error has occurred. Database is empty");
             return "error";
         } catch (Exception e) {
-            e.printStackTrace(); // To catch any other unexpected exceptions
+            e.printStackTrace();
             return "error";
         }
     }

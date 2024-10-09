@@ -34,7 +34,6 @@ public class  ChatGPTWord {
     )
     private List<ChatGPTRoot> roots = new ArrayList<>();
 
-    // Constructor with parameters
     public ChatGPTWord(String name, String english, String image, int difficulty) {
         this.name = name;
         this.english = english;

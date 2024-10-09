@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-//    why do we need all these instance variables when we could just import? will these even be used in the logic of an instance?
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 

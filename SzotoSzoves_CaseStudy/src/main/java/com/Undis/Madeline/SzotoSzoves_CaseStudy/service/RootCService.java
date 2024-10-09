@@ -19,7 +19,6 @@ public class RootCService {
 
     public RootC getRootByName(String name) {
         RootC root = rootCRepository.findByName(name);
-        System.out.println(root);
         return root;
     }
 
@@ -28,7 +27,6 @@ public class RootCService {
     {
         List<RootC> roots = rootCRepository.getRootsInOrder(wordId);
         if (roots.isEmpty()) {
-            System.out.println("root service no roots");
             throw new NoRootsFoundException("No roots found in the database for the given word ID: " + wordId);
         }
         return roots;

@@ -22,7 +22,6 @@ public class WordCService {
         Optional<WordC> wordOptional = wordCRepository.findRandomWord(language);
         if(wordOptional.isPresent()) {
             WordC word = wordOptional.get();
-            System.out.println("Word: " + word);
             return word;
         } else {
             throw new

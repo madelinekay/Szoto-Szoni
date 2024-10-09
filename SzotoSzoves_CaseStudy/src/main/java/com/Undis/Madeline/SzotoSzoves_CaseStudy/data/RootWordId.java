@@ -8,7 +8,6 @@ import java.io.Serializable;
 public class RootWordId implements Serializable {
     private int rootCId;
     private int wordCId;
-
     public RootWordId() {}
 
     public RootWordId(int rootId, int wordId) {
@@ -31,6 +30,4 @@ public class RootWordId implements Serializable {
     public void setWordCId(int wordCId) {
         this.wordCId = wordCId;
     }
-
-// getters and setters
 }

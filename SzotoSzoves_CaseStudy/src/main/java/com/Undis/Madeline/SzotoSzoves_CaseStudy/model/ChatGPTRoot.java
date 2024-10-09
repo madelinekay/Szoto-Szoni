@@ -25,12 +25,10 @@ public class ChatGPTRoot {
     @ManyToMany(mappedBy = "roots")
     private List<ChatGPTWord> words = new ArrayList<>();
 
-    // Constructor with parameters
     public ChatGPTRoot(String name, String english) {
         this.name = name;
         this.english = english;
     }
-
     public Long getId() {
         return id;
     }
